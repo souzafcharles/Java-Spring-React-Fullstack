@@ -4,8 +4,7 @@
 ![GitHub last commit](https://img.shields.io/github/last-commit/souzafcharles/java-spring-react-fullstack)
 
 # 💻 Building a Full-Stack Application with Java Spring and React
-:triangular_flag_on_post: Project developed based on tutorials by **Fernanda
-Kipper** - [kipperdev](https://www.youtube.com/@kipperdev).
+:triangular_flag_on_post: Project developed based on tutorials by **Fernanda Kipper** - [kipperdev](https://www.youtube.com/@kipperdev).
 ***
 ## Project Stack:
 
