@@ -3,9 +3,9 @@
 ![GitHub](https://img.shields.io/github/license/souzafcharles/java-spring-react-fullstack)
 ![GitHub last commit](https://img.shields.io/github/last-commit/souzafcharles/java-spring-react-fullstack)
 
-# :coffee: Building a Full-Stack Application with Java Spring and React
-:triangular_flag_on_post: Project developed based on tutorials by Fernanda
-Kipper - [kipperdev](https://www.youtube.com/@kipperdev)
+# 💻 Building a Full-Stack Application with Java Spring and React
+:triangular_flag_on_post: Project developed based on tutorials by **Fernanda
+Kipper** - [kipperdev](https://www.youtube.com/@kipperdev).
 ***
 ## Project Stack:
 
@@ -20,13 +20,13 @@ Kipper - [kipperdev](https://www.youtube.com/@kipperdev)
 ***
 ## Dependencies:
 
-| Dependency           | Category        | Description                                                                                                                          |
-|----------------------|-----------------|--------------------------------------------------------------------------------------------------------------------------------------|
-| Spring Boot DevTools | Developer Tools | Provides fast application restarts, LiveReload, and configurations for enhanced development experience                               |
-| Spring Web           | Web             | Build web, including RESTful, applications using Spring MVC. Uses Apache Tomcat as the default embedded container                    |
-| Lombok               | Developer Tools | Java annotation library which helps to reduce boilerplate code                                                                       |
-| Spring Data JPA      | SQL             | Persist data in SQL stores with Java Persistence API using Spring Data and Hibernate                                                 |
-| PostgreSQL Driver    | SQL             | A JDBC and R2DBC driver that allows Java programs to connect to a PostgreSQL database using standard, database independent Java code |
+| Dependency              | Category        | Description                                                                                                                          |
+|-------------------------|-----------------|--------------------------------------------------------------------------------------------------------------------------------------|
+| 🛠️ Spring Boot DevTools | Developer Tools | Provides fast application restarts, LiveReload, and configurations for enhanced development experience                               |
+| 🌐 Spring Web           | Web             | Build web, including RESTful, applications using Spring MVC. Uses Apache Tomcat as the default embedded container                    |
+| ✨ Lombok               | Developer Tools | Java annotation library which helps to reduce boilerplate code                                                                       |
+| 💾 Spring Data JPA      | SQL             | Persist data in SQL stores with Java Persistence API using Spring Data and Hibernate                                                 |
+| 🐘 PostgreSQL Driver    | SQL             | A JDBC and R2DBC driver that allows Java programs to connect to a PostgreSQL database using standard, database independent Java code |
 
 ***
 ## Instructions:
@@ -47,5 +47,3 @@ This section focuses on developing the application's frontend using the <code>Re
 ***
 ▶️ **Tutorial Video kipperDev**: [Part 1](https://www.youtube.com/watch?v=lUVureR5GqI&ab_channel=FernandaKipper%7CDev)</br>
 ▶️ **Tutorial Video kipperDev**: [Part 2](https://www.youtube.com/watch?v=WHruc3_2z68&ab_channel=FernandaKipper%7CDev)
-
-# Java-Spring-React-Fullstack
