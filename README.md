@@ -4,7 +4,7 @@
 ![GitHub last commit](https://img.shields.io/github/last-commit/souzafcharles/java-spring-react-fullstack)
 
 # 💻 Building a Full-Stack Application with Java Spring and React
-:triangular_flag_on_post: Project developed based on tutorials by **Fernanda Kipper** - [kipperdev](https://www.youtube.com/@kipperdev).
+:triangular_flag_on_post: Project developed based on tutorials by **Fernanda Kipper** - [kipperDev](https://www.youtube.com/@kipperdev).
 ***
 ## Project Stack:
 | Technology        | Version   | Description                                 |
@@ -32,7 +32,7 @@
 This guide provides a structured approach to developing a full-stack application using <code>Java Spring</code>, <code>React</code>, and <code>PostgreSQL</code>. The process is divided into two key phases: backend development and frontend development.
 </p>
 
-### Part 1: Backend Development with Java Spring:
+### Part 1: Backend Development with Java Spring and PostgreSQL:
 <p align="justify">
 This section details the construction of the application's backend using the <code>Java Spring</code> framework. The initial step involves creating a <code>Spring Boot</code> project and configuring the <code>PostgreSQL</code> database. Subsequently, the guide covers the creation of data models and <code>RESTful</code> controllers to manage <code>CRUD</code> operations within the application. The utilisation of essential libraries, such as <code>Spring Data JPA</code>, will be explored to streamline data access and manipulation.
 </p>
@@ -47,8 +47,11 @@ This section focuses on developing the application's frontend using the <code>Re
 ▶️ **Tutorial Video kipperDev**: [Part 2](https://www.youtube.com/watch?v=WHruc3_2z68&ab_channel=FernandaKipper%7CDev)
 ***
 ## Project Requirements and Configurations:
-### Food Domain Model Entity:
-![Food Domain Model Entity](https://github.com/souzafcharles/Java-Spring-React-Fullstack/raw/main/src/main/resources/static/img/food-entity.png)
+### Food Domain Entity:
+![Food Domain Entity](https://github.com/souzafcharles/Java-Spring-React-Fullstack/raw/main/src/main/resources/static/img/food-entity.png)
+***
+### Logical Layers:
+![Logical Layers](https://github.com/souzafcharles/Java-Spring-React-Fullstack/raw/main/src/main/resources/static/img/logical-layers.png)
 ***
 ### 1. Requirements Specification:
 #### 1.1 Dependencies and Tools:
@@ -118,34 +121,72 @@ public static void main(String[] args) {
 ````
 ***
 ### 7. Entity, DTOs, Repository, and Controller Classes:
-#### 7.1 Requirements for Food Entity Class:
-- Create the `Food` Entity Class;
-- Annotate the class with `@Entity` and `@Table`(name = "tb_food") to map it to the database table;
-- Basic Attributes;
-- Annotate `@Id` and `@GeneratedValue` for the primary key, and `@Column(name = "imguri")` for `imgUri` attribute;
-- Constructors;
-- Getters & Setters;
-- hashCode & equals;
-- Serializable.
-#### 7.2 Requirements for FoodResponseDTO Record Class:
-- Create the `FoodResponseDTO` Record Class;
-- Define the attributes: `id`, `title`, `price`, `imgUri` directly in the record declaration. This is done by specifying them as parameters in the record's header;
-- Implement a constructor that accepts a `Food` entity object to initialize its attributes;
-- Ensure the constructor extracts values from the `Food` object and sets the values for `id`, `title`, `price`, and `imgUri`.
-#### 7.3 Requirements for FoodRequestDTO Record Class:
-- Create the `FoodRequestDTO` Record Class;
-- Define the attributes: `String title`, `Double price`, `String imgUri` directly in the record declaration. This is done by specifying them as parameters in the record's header.
-#### 7.4 Requirements for FoodRepository Class:
-- Create an Interface that extends `JpaRepository` for the `Food` entity (`extends JpaRepository<Food, Long>`).
-#### 7.5 Requirements for FoodController Class:
-- Create the `FoodController` Class;
-- Use `@RestController` annotation;
-- Map requests (`@RequestMapping`) to the `/foods` endpoint;
-- Inject `FoodRepository` using `@Autowired`;
-- Implement a method to handle `GET` requests and return all foods (`@GetMapping`);
-- Implement a method to handle `POST` requests to insert a new `Food` (`@PostMapping`);
-- Use `@CrossOrigin` annotation to allow cross-origin requests from any origin;
-- Implement serialization by making the class implement `Serializable`.
+### 7.1 Requirements for Food Entity Class:
+- **Entity Mapping:**
+    - Create the `Food` class as an entity to represent a database table in the application;
+    - Annotate the class with `@Entity` to define it as a persistent entity;
+    - Use `@Table(name = "tb_foods")` to map it to the database table named `tb_foods`;
+- **Attributes and Annotations:**
+    - Define attributes `id`, `title`, `price`, and `imgUri` to map to the respective columns in the database;
+    - Annotate the `id` field with `@Id` and `@GeneratedValue(strategy = GenerationType.IDENTITY)` for automatic primary key generation;
+    - Annotate `imgUri` with `@Column(name = "imguri")` to explicitly define its column name;
+- **Constructors:**
+    - Create a no-argument constructor required by `JPA`;
+    - Provide an all-arguments constructor for convenience;
+    - Include a constructor that accepts a `FoodRequestDTO` for mapping `DTO` data to the entity;
+- **Accessors and Mutators:**
+    - Implement `getters` and `setters` for all attributes to allow data manipulation;
+- **Equals and HashCode:**
+    - Override the `equals()` method to compare entities based on the `id` attribute;
+    - Override `hashCode()` to provide a consistent hash for `Food` objects, using `Objects.hashCode(id)`;
+- **Serializable Interface:**
+    - Implement the `Serializable` interface to support object serialization for the entity when necessary (e.g., when transferring objects between systems).
+### 7.2 Requirements for FoodResponseDTO Record Class:
+- **Record Declaration:**
+    - Create the `FoodResponseDTO` as a `record` class to represent a simplified data structure for `responses`;
+- **Attribute Definition:**
+    - Define the attributes `id`, `title`, `price`, and `imgUri` directly in the record's header to make them immutable and automatically provide accessor methods;
+- **Entity-based Constructor:**
+    - Implement a custom constructor that accepts a `Food` entity object as an argument;
+    - Extract and map values from the `Food` entity to initialise the `FoodResponseDTO` attributes.
+- **Purpose:**
+    - Use this `record` for `transferring` food-related data from the `backend service layer` to the `controller response`, following RESTful API conventions.
+### 7.3 Requirements for FoodRequestDTO Record Class:
+- **Record Declaration:**
+    - Create the `FoodRequestDTO` as a `record` class to represent the request payload for creating or updating food entries.
+- **Attribute Definition:**
+    - Define the attributes `String title`, `Double price`, and `String imgUri` directly in the record's header, enabling immutability and automatic generation of accessor methods.
+- **Purpose:**
+    - Use this `record` for `receiving` and validating user input from `client requests` to `create/insert` or `update` `Food` entities within the application.
+### 7.4 Requirements for FoodRepository Interface:
+- **Repository Creation:**
+    - Create the `FoodRepository` interface to handle data access operations for the `Food` entity;
+- **JpaRepository Extension:**
+    - Extend `JpaRepository<Food, Long>` to inherit common CRUD operations and JPA-specific functionalities;
+- **Entity Association:**
+    - Specify `Food` as the associated entity and `Long` as the type for its primary key;
+### 7.5 Requirements for FoodService Class:
+- Use `@Service` annotation to define the class as a Spring service component;
+- Inject `FoodRepository` using `@Autowired` for dependency injection;
+- Implement methods to retrieve all `Food` entities:
+    - `findAll`: Fetches all entries from the database and maps them to `FoodResponseDTO` objects;
+    - Use `@Transactional(readOnly = true)` to ensure the method runs within a read-only transaction for optimized database performance;
+- Implement a method to insert a new `Food` entity:
+    - `insert`: Saves a new `Food` entity in the database;
+    - Use `@Transactional` to ensure that this method runs within a transactional context, enabling database operations rollback if any exceptions occur.
+### 7.6 Requirements for FoodController Class:
+- Create the `FoodController` class to manage RESTful endpoints for the `Food` resource;
+- Use `@RestController` annotation to mark it as a REST controller for Spring;
+- Map requests using the `@RequestMapping` annotation for the `/foods` endpoint;
+- Inject `FoodService` using `@Autowired` for service dependency injection;
+- Implement a method to handle `GET` requests:
+    - Use `@GetMapping` annotation to map GET requests to `/foods`;
+    - Return a `ResponseEntity<List<FoodResponseDTO>>` with an HTTP 200 (OK) status and the list of foods;
+- Implement a method to handle `POST` requests:
+    - Use `@PostMapping` annotation to map POST requests to `/foods`;
+    - Return a `ResponseEntity<FoodResponseDTO>` with an HTTP 201 (Created) status and the created `Food` object;
+- Use `@CrossOrigin(origins = "*", allowedHeaders = "*")` annotation to allow cross-origin requests from any origin;
+- Ensure that the class implements the `Serializable` interface to support object serialization when needed.
 ***
 ### 8. Database Seeding with Food Data in PostgreSQL:
 ````sql

@@ -1,12 +1,19 @@
 package com.souza.charles.digitalMenu.entities;
+ /*
+ Tutorial title: Building a Full-Stack Application with Java Spring and React
+ Instructor: Fernanda Kipper - kipperDev
+ Project adapted by: Charles Fernandes de Souza
+ Date: January 31, 2025
+ */
 
 import com.souza.charles.digitalMenu.dto.FoodRequestDTO;
 import jakarta.persistence.*;
+
 import java.io.Serializable;
 import java.util.Objects;
 
-@Entity(name="foods")
-@Table(name="tb_foods")
+@Entity
+@Table(name = "tb_foods")
 public class Food implements Serializable {
 
     @Id
