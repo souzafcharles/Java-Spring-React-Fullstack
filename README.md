@@ -500,7 +500,7 @@ http://localhost:8080/foods/17
 - `message`: Detailed information, including the resource identifier;
 - `path`: The URI path of the failed request.
 ***
-### 11 Exception Handling - DELETE:
+### 11. Exception Handling - DELETE:
 This section covers the implementation of exception handling for the `delete` operation in the `FoodService` class, introducing custom exceptions and centralized error handling mechanisms.
 #### 11.1 **NEW CLASS:** `services.exceptions.DatabaseException`:
 - Custom exception created to handle database-related errors such as data integrity violations;
@@ -581,6 +581,64 @@ DELETE http://localhost:8080/foods/1
 #### Key Attributes Explained:
 - `timestamp`: Indicates when the error occurred;
 - `status`: The HTTP status code (either `404` for `Not Found` or `400` for `Bad Request` database errors );
+- `error`: Short description of the issue;
+- `message`: Detailed information, including the resource identifier;
+- `path`: The URI path of the failed request.
+***
+### 12. Exception Handling - UPDATE:
+This section covers the implementation of exception handling for the `update` operation in the `FoodService` class, introducing custom exceptions and centralized error handling mechanisms.
+
+#### 12.1 Update Method update in FoodService:
+- Modify the `update` method to throw the custom `ResourceNotFoundException`:
+````java
+    @Transactional
+    public FoodResponseDTO update(Long id, FoodRequestDTO data) {
+        try {
+            Food entity = foodRepository.getReferenceById(id);
+            updateData(entity, data);
+            Food updated = foodRepository.save(entity);
+            return new FoodResponseDTO(updated);
+        } catch (EntityNotFoundException e) {
+            throw new ResourceNotFoundException(id);
+        }
+    }
+
+    private void updateData(Food entity, FoodRequestDTO data) {
+        entity.setTitle(data.title());
+        entity.setPrice(data.price());
+        entity.setImgUri(data.imgUri());
+    }
+````
+#### 12.2 Requesting and Responding Food Data via Spring Boot RESTful API:
+#### 12.2.1 Setting Up the RESTful API for HTTP Methods (Idempotent):
+- **Endpoint**: PUT `/foods/{id}`;
+- **Purpose**: Updates a specific Food item by its ID.
+#### 12.2.2 Example PUT Request (Resource Not Found):
+- **Scenario**: The requested ID `17` does not exist, triggering the custom error response with a `404 Not Found` status code:
+````json
+PUT http://localhost:8080/foods/17
+Body -> raw -> JSON
+````
+````json
+{
+  "title": "Crepioca de Carne Seca",
+  "price": 22.99,
+  "imgUri": "https://github.com/souzafcharles/Java-Spring-React-Fullstack/raw/main/src/main/resources/img/crepioca.jpg"
+}
+````
+#### 12.2.3 Example Error Response:
+````json
+{
+    "timestamp": "2025-01-31T19:18:17Z",
+    "status": 404,
+    "error": "Resource not found with the specified identifier or criteria.",
+    "message": "Resource Not Found! ID: 17",
+    "path": "/foods/17"
+}
+````
+#### Key Attributes Explained:
+- `timestamp`: Indicates when the error occurred;
+- `status`: The HTTP status code `404` for `Not Found`;
 - `error`: Short description of the issue;
 - `message`: Detailed information, including the resource identifier;
 - `path`: The URI path of the failed request.

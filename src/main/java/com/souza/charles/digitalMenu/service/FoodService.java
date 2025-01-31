@@ -12,6 +12,7 @@ import com.souza.charles.digitalMenu.entities.Food;
 import com.souza.charles.digitalMenu.repository.FoodRepository;
 import com.souza.charles.digitalMenu.service.exceptions.DatabaseException;
 import com.souza.charles.digitalMenu.service.exceptions.ResourceNotFoundException;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -49,10 +50,14 @@ public class FoodService {
 
     @Transactional
     public FoodResponseDTO update(Long id, FoodRequestDTO data) {
-        Food entity = foodRepository.getReferenceById(id);
-        updateData(entity, data);
-        Food updated = foodRepository.save(entity);
-        return new FoodResponseDTO(updated);
+        try {
+            Food entity = foodRepository.getReferenceById(id);
+            updateData(entity, data);
+            Food updated = foodRepository.save(entity);
+            return new FoodResponseDTO(updated);
+        } catch (EntityNotFoundException e) {
+            throw new ResourceNotFoundException(id);
+        }
     }
 
     private void updateData(Food entity, FoodRequestDTO data) {
