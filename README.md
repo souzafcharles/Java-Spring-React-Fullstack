@@ -121,7 +121,7 @@ public static void main(String[] args) {
 ````
 ***
 ### 7. Entity, DTOs, Repository, and Controller Classes:
-### 7.1 Requirements for Food Entity Class:
+#### 7.1 Requirements for Food Entity Class:
 - **Entity Mapping:**
     - Create the `Food` class as an entity to represent a database table in the application;
     - Annotate the class with `@Entity` to define it as a persistent entity;
@@ -141,7 +141,7 @@ public static void main(String[] args) {
     - Override `hashCode()` to provide a consistent hash for `Food` objects, using `Objects.hashCode(id)`;
 - **Serializable Interface:**
     - Implement the `Serializable` interface to support object serialization for the entity when necessary (e.g., when transferring objects between systems).
-### 7.2 Requirements for FoodResponseDTO Record Class:
+#### 7.2 Requirements for FoodResponseDTO Record Class:
 - **Record Declaration:**
     - Create the `FoodResponseDTO` as a `record` class to represent a simplified data structure for `responses`;
 - **Attribute Definition:**
@@ -151,21 +151,21 @@ public static void main(String[] args) {
     - Extract and map values from the `Food` entity to initialise the `FoodResponseDTO` attributes.
 - **Purpose:**
     - Use this `record` for `transferring` food-related data from the `backend service layer` to the `controller response`, following RESTful API conventions.
-### 7.3 Requirements for FoodRequestDTO Record Class:
+#### 7.3 Requirements for FoodRequestDTO Record Class:
 - **Record Declaration:**
     - Create the `FoodRequestDTO` as a `record` class to represent the request payload for creating or updating food entries.
 - **Attribute Definition:**
     - Define the attributes `String title`, `Double price`, and `String imgUri` directly in the record's header, enabling immutability and automatic generation of accessor methods.
 - **Purpose:**
     - Use this `record` for `receiving` and validating user input from `client requests` to `create/insert` or `update` `Food` entities within the application.
-### 7.4 Requirements for FoodRepository Interface:
+#### 7.4 Requirements for FoodRepository Interface:
 - **Repository Creation:**
     - Create the `FoodRepository` interface to handle data access operations for the `Food` entity;
 - **JpaRepository Extension:**
     - Extend `JpaRepository<Food, Long>` to inherit common CRUD operations and JPA-specific functionalities;
 - **Entity Association:**
     - Specify `Food` as the associated entity and `Long` as the type for its primary key;
-### 7.5 Requirements for FoodService Class:
+#### 7.5 Requirements for FoodService Class:
 - Use `@Service` annotation to define the class as a Spring service component;
 - Inject `FoodRepository` using `@Autowired` for dependency injection;
 - Implement methods to retrieve all `Food` entities:
@@ -173,8 +173,17 @@ public static void main(String[] args) {
     - Use `@Transactional(readOnly = true)` to ensure the method runs within a read-only transaction for optimized database performance;
 - Implement a method to insert a new `Food` entity:
     - `insert`: Saves a new `Food` entity in the database;
-    - Use `@Transactional` to ensure that this method runs within a transactional context, enabling database operations rollback if any exceptions occur.
-### 7.6 Requirements for FoodController Class:
+    - Use `@Transactional` to ensure that this method runs within a transactional context, enabling database operations rollback if any exceptions occur;
+- Implement a method to retrieve a `Food` entity by its `id`:
+    - `findById`: Fetches a single `Food` entity by its identifier and maps it to a `FoodResponseDTO`;
+    - Use `@Transactional(readOnly = true)` to ensure that this method runs within a read-only transaction;
+- Implement a method to update an existing `Food` entity:
+    - `update`: Updates an existing `Food` entity by its identifier;
+    - Use `@Transactional` to ensure the method is executed in a transactional context for data consistency;
+- Implement a method to delete a `Food` entity:
+    - `delete`: Deletes a `Food` entity by its identifier;
+    - Use `@Transactional` to ensure the operation is part of a transaction, allowing rollback in case of failure.
+#### 7.6 Requirements for FoodController Class:
 - Create the `FoodController` class to manage RESTful endpoints for the `Food` resource;
 - Use `@RestController` annotation to mark it as a REST controller for Spring;
 - Map requests using the `@RequestMapping` annotation for the `/foods` endpoint;
@@ -182,9 +191,19 @@ public static void main(String[] args) {
 - Implement a method to handle `GET` requests:
     - Use `@GetMapping` annotation to map GET requests to `/foods`;
     - Return a `ResponseEntity<List<FoodResponseDTO>>` with an HTTP 200 (OK) status and the list of foods;
+    - Handle empty lists and return an HTTP 204 (No Content) status if no foods are found;
 - Implement a method to handle `POST` requests:
     - Use `@PostMapping` annotation to map POST requests to `/foods`;
     - Return a `ResponseEntity<FoodResponseDTO>` with an HTTP 201 (Created) status and the created `Food` object;
+- Implement a method to handle `GET` requests by `id`:
+    - Use `@GetMapping(value = "/{id}")` annotation to map GET requests for a specific `Food` by its identifier;
+    - Return a `ResponseEntity<FoodResponseDTO>` with an HTTP 200 (OK) status;
+- Implement a method to handle `PUT` requests for updating a `Food` by `id`:
+    - Use `@PutMapping(value = "/{id}")` annotation to map PUT requests for updating an existing `Food`;
+    - Return a `ResponseEntity<FoodResponseDTO>` with an HTTP 200 (OK) status and the updated `Food` object;
+- Implement a method to handle `DELETE` requests for deleting a `Food` by `id`:
+    - Use `@DeleteMapping(value = "/{id}")` annotation to map DELETE requests for removing a specific `Food`;
+    - Return a `ResponseEntity<Void>` with an HTTP 204 (No Content) status after successful deletion;
 - Use `@CrossOrigin(origins = "*", allowedHeaders = "*")` annotation to allow cross-origin requests from any origin;
 - Ensure that the class implements the `Serializable` interface to support object serialization when needed.
 ***
@@ -345,3 +364,55 @@ Body -> raw -> JSON
   "imgUri": "https://github.com/souzafcharles/Java-Spring-React-Fullstack/raw/main/src/main/resources/img/crepioca.jpg"
 }
 ````
+#### 9.7 Setting Up the RESTful API for HTTP Methods (Idempotent):
+- Endpoint: GET `/foods/{id}`: Retrieves a specific Food item by its ID.
+
+#### 9.8 Example GET Request:
+````json
+http://localhost:8080/foods/1
+````        
+#### 9.9 Example Response:
+````json
+{
+  "id": 1,
+  "title": "Pizza Margherita",
+  "price": 29.99,
+  "imgUri": "https://github.com/souzafcharles/Java-Spring-React-Fullstack/raw/main/src/main/resources/static/img/pizza.jpg"
+}
+````
+#### 9.10 Setting Up the RESTful API for HTTP Methods (Idempotent):
+- Endpoint: PUT `/foods/{id}`: Updates a specific Food item by its ID.
+#### 9.11 Example PUT Request:
+````json
+http://localhost:8080/foods/16
+Body -> raw -> JSON
+````
+````json
+{
+  "title": "Tapioca de Carne Seca",
+  "price": 20.99,
+  "imgUri": "https://github.com/souzafcharles/Java-Spring-React-Fullstack/raw/main/src/main/resources/img/tapioca.jpg"
+}
+````
+#### 9.12 Example Response:
+````json
+{
+  "id": 16,
+  "title": "Tapioca de Carne Seca",
+  "price": 20.99,
+  "imgUri": "https://github.com/souzafcharles/Java-Spring-React-Fullstack/raw/main/src/main/resources/img/tapioca.jpg"
+}
+````
+#### 9.13 Setting Up the RESTful API for HTTP Methods (Idempotent):
+- Endpoint: DELETE `/foods/{id}`: Deletes a specific Food item by its ID.
+#### 9.14 Example DELETE Request:
+````json
+http://localhost:8080/foods/1
+````
+#### 9.15 Example Response:
+````json
+HTTP Status 204 - No Content
+````
+#### 9.16 Idempotent and Non-Idempotent Methods:
+- **Idempotent Method**: `GET`, `PUT`, and `DELETE` are idempotent, meaning multiple identical requests should have the same effect as a single request;
+- **Non-Idempotent Method**: `POST` is non-idempotent, meaning multiple identical requests may have additional effects.

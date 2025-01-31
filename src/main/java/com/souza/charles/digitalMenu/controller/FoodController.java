@@ -23,12 +23,19 @@ import java.util.List;
 public class FoodController implements Serializable {
 
     @Autowired
-    private FoodService serviceRepository;
+    private FoodService foodService;
+
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
+    @PostMapping
+    public ResponseEntity<FoodResponseDTO> insert(@RequestBody FoodRequestDTO data) {
+        FoodResponseDTO createdFood = foodService.insert(data);
+        return ResponseEntity.status(HttpStatus.CREATED).body(createdFood);
+    }
 
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     @GetMapping
-    public ResponseEntity <List<FoodResponseDTO>> findAll(){
-        List<FoodResponseDTO> list = serviceRepository.findAll();
+    public ResponseEntity<List<FoodResponseDTO>> findAll() {
+        List<FoodResponseDTO> list = foodService.findAll();
         if (list.isEmpty()) {
             return ResponseEntity.noContent().build();
         }
@@ -36,9 +43,23 @@ public class FoodController implements Serializable {
     }
 
     @CrossOrigin(origins = "*", allowedHeaders = "*")
-    @PostMapping
-    public ResponseEntity<FoodResponseDTO> insert(@RequestBody FoodRequestDTO data) {
-        FoodResponseDTO createdFood = serviceRepository.insert(data);
-        return ResponseEntity.status(HttpStatus.CREATED).body(createdFood);
+    @GetMapping(value = "/{id}")
+    public ResponseEntity<FoodResponseDTO> findById(@PathVariable Long id) {
+        FoodResponseDTO result = foodService.findById(id);
+        return ResponseEntity.ok().body(result);
+    }
+
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
+    @PutMapping(value = "/{id}")
+    public ResponseEntity<FoodResponseDTO> update(@PathVariable Long id, @RequestBody FoodRequestDTO data) {
+        FoodResponseDTO updated = foodService.update(id, data);
+        return ResponseEntity.ok(updated);
+    }
+
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
+        foodService.delete(id);
+        return ResponseEntity.noContent().build();
     }
 }
