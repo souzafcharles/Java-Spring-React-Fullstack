@@ -10,6 +10,7 @@ import com.souza.charles.digitalMenu.dto.FoodRequestDTO;
 import com.souza.charles.digitalMenu.dto.FoodResponseDTO;
 import com.souza.charles.digitalMenu.entities.Food;
 import com.souza.charles.digitalMenu.repository.FoodRepository;
+import com.souza.charles.digitalMenu.service.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -39,7 +40,7 @@ public class FoodService {
 
     @Transactional(readOnly = true)
     public FoodResponseDTO findById(Long id) {
-        Food result = foodRepository.findById(id).get();
+        Food result = foodRepository.findById(id).orElseThrow(()-> new ResourceNotFoundException(id));
         return new FoodResponseDTO(result);
     }
 

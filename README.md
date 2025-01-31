@@ -416,3 +416,85 @@ HTTP Status 204 - No Content
 #### 9.16 Idempotent and Non-Idempotent Methods:
 - **Idempotent Method**: `GET`, `PUT`, and `DELETE` are idempotent, meaning multiple identical requests should have the same effect as a single request;
 - **Non-Idempotent Method**: `POST` is non-idempotent, meaning multiple identical requests may have additional effects.
+***
+### 10. Exception Handling for `findById` Method:
+#### 10.1 **NEW CLASS:** `services.exceptions.ResourceNotFoundException` (Custom Exception)`:
+- Create a custom exception named `ResourceNotFoundException`, extending `RuntimeException`;
+- Constructor takes an `Object id` as a parameter to provide a specific resource ID in the error message;
+- Provide a detailed message when an exception occurs: `"Resource Not Found! ID: [id]"`.
+#### 10.2 **NEW CLASS:** `controller.exceptions.StandardError` (Entity for Standardized Error Messages):
+- Create the `StandardError` class to represent error messages for RESTful APIs:
+- Include the following attributes:
+  - `Instant timestamp`: formatted with `@JsonFormat` to comply with standard time formats;
+  - `Integer status`: the HTTP response status code;
+  - `String error`: short description of the error;
+  - `String message`: detailed error message;
+  - `String path`: the URI that generated the error;
+- Provide constructors, getters, and setters to support object manipulation;
+- Implement `Serializable` for object serialization when needed.
+#### 10.3 **NEW CLASS:** `controller.exceptions.ResourceExceptionHandler`:
+- The `ResourceExceptionHandler` class is responsible for intercepting exceptions thrown during the execution of RESTful requests in the application and converting them into standardized HTTP error responses.
+#### 10.3.1 **Key Features:**
+- **Global Exception Handling:** The class is annotated with `@ControllerAdvice`, which enables centralized exception handling across all `@Controller` components;
+- **Error Response Standardization:** Provides a mechanism to customize the error response by creating and returning `StandardError` objects with detailed error information.
+#### 10.3.2 **Detailed Breakdown of the `resourceNotFound` Method:**
+````java
+@ExceptionHandler(ResourceNotFoundException.class)
+public ResponseEntity<StandardError> resourceNotFound(ResourceNotFoundException e, HttpServletRequest request) {
+    String error = "The requested resource was not found.";
+    HttpStatus status = HttpStatus.NOT_FOUND;
+    StandardError err = new StandardError(
+            Instant.now(),                   // Current timestamp of the error
+            status.value(),                  // HTTP Status code (404)
+            error,                           // Custom error message
+            e.getMessage(),                  // Exception's detailed message
+            request.getRequestURI()          // URI path where the error occurred
+    );
+    return ResponseEntity.status(status).body(err);
+}
+````
+#### 10.3.3 Annotations and Parameters:
+- `@ExceptionHandler`(ResourceNotFoundException.class): Maps the method to handle exceptions of type `ResourceNotFoundException`;
+- `ResourceNotFoundException` e: The exception object containing the error details;
+- `HttpServletRequest` request: Captures information about the HTTP request, such as the request URI.
+#### 10.3.3 Response Construction:
+- **Timestamp**: `Instant.now()` ensures the current time is recorded when the exception is handled;
+- **Status Code**: `HttpStatus.NOT_FOUND.value()` returns the HTTP status code 404;
+- **Error Message**: The variable `error` provides a concise description for the error;
+- **Detailed Message**: `e.getMessage()` displays the custom error message from ResourceNotFoundException;
+- **Request Path**: `request.getRequestURI()` specifies the URI that caused the exception.
+#### 10.4 Update Method findById in FoodService:
+- Modify the `findById` method to throw the custom `ResourceNotFoundException`:
+````java
+@Transactional(readOnly = true)
+public FoodResponseDTO findById(Long id) {
+    Food result = foodRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException(id));
+    return new FoodResponseDTO(result);
+}
+````
+#### 10.5 Requesting and Responding Food Data via Spring Boot RESTful API:
+#### 10.5.1 Setting Up the RESTful API for HTTP Methods (Idempotent):
+- **Endpoint**: GET `/foods/{id}`;
+- **Purpose**: Retrieves a specific Food item by its ID.
+#### 10.5.2 Example GET Request:
+- **Scenario**: The requested ID `17` does not exist, triggering the custom error response with a 404 Not Found status code.
+````json
+http://localhost:8080/foods/17
+````
+#### 10.5.3 Example Error Response:
+- Upon catching a `ResourceNotFoundException`, the method returns a structured JSON response in the following format:
+````json
+{
+    "timestamp": "2025-01-31T18:27:56Z",
+    "status": 404,
+    "error": "The requested resource was not found.",
+    "message": "Resource Not Found! ID: 17",
+    "path": "/foods/17"
+}
+````
+#### Key Attributes Explained:
+- `timestamp`: Indicates when the error occurred;
+- `status`: The HTTP status code (404 Not Found);
+- `error`: Short description of the issue;
+- `message`: Detailed information, including the resource identifier;
+- `path`: The URI path of the failed request.
