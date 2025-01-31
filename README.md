@@ -419,6 +419,7 @@ HTTP Status 204 - No Content
 ***
 ### 10. Exception Handling for `findById` Method:
 #### 10.1 **NEW CLASS:** `services.exceptions.ResourceNotFoundException` (Custom Exception)`:
+- This section introduces the implementation of custom exception handling for the `findById` method in the FoodService class, introducing custom exceptions and centralized error handling mechanisms.
 - Create a custom exception named `ResourceNotFoundException`, extending `RuntimeException`;
 - Constructor takes an `Object id` as a parameter to provide a specific resource ID in the error message;
 - Provide a detailed message when an exception occurs: `"Resource Not Found! ID: [id]"`.
@@ -441,7 +442,7 @@ HTTP Status 204 - No Content
 ````java
 @ExceptionHandler(ResourceNotFoundException.class)
 public ResponseEntity<StandardError> resourceNotFound(ResourceNotFoundException e, HttpServletRequest request) {
-    String error = "The requested resource was not found.";
+    String error = "Resource not found with the specified identifier or criteria.";
     HttpStatus status = HttpStatus.NOT_FOUND;
     StandardError err = new StandardError(
             Instant.now(),                   // Current timestamp of the error
@@ -477,7 +478,7 @@ public FoodResponseDTO findById(Long id) {
 - **Endpoint**: GET `/foods/{id}`;
 - **Purpose**: Retrieves a specific Food item by its ID.
 #### 10.5.2 Example GET Request:
-- **Scenario**: The requested ID `17` does not exist, triggering the custom error response with a 404 Not Found status code.
+- **Scenario**: The requested ID `17` does not exist, triggering the custom error response with a `404 Not Found` status code:
 ````json
 http://localhost:8080/foods/17
 ````
@@ -487,7 +488,7 @@ http://localhost:8080/foods/17
 {
     "timestamp": "2025-01-31T18:27:56Z",
     "status": 404,
-    "error": "The requested resource was not found.",
+    "error": "Resource not found with the specified identifier or criteria.",
     "message": "Resource Not Found! ID: 17",
     "path": "/foods/17"
 }
@@ -498,3 +499,89 @@ http://localhost:8080/foods/17
 - `error`: Short description of the issue;
 - `message`: Detailed information, including the resource identifier;
 - `path`: The URI path of the failed request.
+***
+### 11 Exception Handling - DELETE:
+This section covers the implementation of exception handling for the `delete` operation in the `FoodService` class, introducing custom exceptions and centralized error handling mechanisms.
+#### 11.1 **NEW CLASS:** `services.exceptions.DatabaseException`:
+- Custom exception created to handle database-related errors such as data integrity violations;
+- **Constructor:**
+```java
+public DatabaseException(String message) {
+    super(message);
+}
+````
+#### 11.2 **UPDATE CLASS:** `controller.exceptions.ResourceExceptionHandler`:
+Key Features:
+- New Method: `handleDatabaseException`(DatabaseException e, HttpServletRequest request) handles database-related exceptions.
+- Exception Handling Method:
+````java
+@ExceptionHandler(DatabaseException.class)
+public ResponseEntity<StandardError> handleDatabaseException(DatabaseException e, HttpServletRequest request) {
+    String error = "A database error occurred. Please check the provided data and try again.";
+    HttpStatus status = HttpStatus.BAD_REQUEST;
+    StandardError err = new StandardError(
+            Instant.now(),                   // Current timestamp
+            status.value(),                  // HTTP Status code (400)
+            error,                           // Custom error message
+            e.getMessage(),                  // Exception's detailed message
+            request.getRequestURI()          // URI path where the error occurred
+    );
+    return ResponseEntity.status(status).body(err);
+}
+````
+#### 11.3 Update Method delete in FoodService:
+- Modify the `delete` method to throw the custom `ResourceNotFoundException` and `DatabaseException`:
+````java
+@DeleteMapping(value = "/{id}")
+@Transactional
+public void delete(Long id) {
+    try {
+        foodRepository.deleteById(id);
+    } catch (EmptyResultDataAccessException e) {
+        throw new ResourceNotFoundException(id);
+    } catch (DataIntegrityViolationException e) {
+        throw new DatabaseException(e.getMessage());
+    }
+}
+````
+#### 11.4 Requesting and Responding Food Data via Spring Boot RESTful API:
+#### 11.4.1 Setting Up the RESTful API for HTTP Methods (Idempotent):
+- **Endpoint**: DELETE `/foods/{id}`;
+- **Purpose**: Deletes a specific Food item by its ID.
+#### 11.4.2 Example DELETE Request (Resource Not Found):
+- **Scenario**: The requested ID `17` does not exist, triggering the custom error response with a `404 Not Found` status code:
+````json
+DELETE http://localhost:8080/foods/17
+````
+#### 11.4.3 Example Error Response:
+````json
+{
+    "timestamp": "2025-01-31T18:27:56Z",
+    "status": 404,
+    "error": "Resource not found with the specified identifier or criteria.",
+    "message": "Resource Not Found! ID: 17",
+    "path": "/foods/17"
+}
+````
+#### 11.4.4 Example DELETE Request (Data Integrity Violation):
+- **Scenario**: The requested ID `1` exists, but due to relationships with another entity, a `Database Constraint Violation` occurs, triggering the custom error response with a `400 Bad Request` status code:
+````json
+DELETE http://localhost:8080/foods/1
+````
+#### 11.4.5 Example Error Response:
+````json
+{
+    "timestamp": "2025-01-31T18:35:02Z",
+    "status": 400,
+    "error": "A database error occurred. Please check the provided data and try again.",
+    "message": "Could not delete food due to data integrity violation.",
+    "path": "/foods/1"
+}
+````
+#### Key Attributes Explained:
+- `timestamp`: Indicates when the error occurred;
+- `status`: The HTTP status code (either `404` for `Not Found` or `400` for `Bad Request` database errors );
+- `error`: Short description of the issue;
+- `message`: Detailed information, including the resource identifier;
+- `path`: The URI path of the failed request.
+***

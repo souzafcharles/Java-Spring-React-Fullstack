@@ -10,8 +10,11 @@ import com.souza.charles.digitalMenu.dto.FoodRequestDTO;
 import com.souza.charles.digitalMenu.dto.FoodResponseDTO;
 import com.souza.charles.digitalMenu.entities.Food;
 import com.souza.charles.digitalMenu.repository.FoodRepository;
+import com.souza.charles.digitalMenu.service.exceptions.DatabaseException;
 import com.souza.charles.digitalMenu.service.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -40,7 +43,7 @@ public class FoodService {
 
     @Transactional(readOnly = true)
     public FoodResponseDTO findById(Long id) {
-        Food result = foodRepository.findById(id).orElseThrow(()-> new ResourceNotFoundException(id));
+        Food result = foodRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException(id));
         return new FoodResponseDTO(result);
     }
 
@@ -61,6 +64,12 @@ public class FoodService {
     @DeleteMapping(value = "/{id}")
     @Transactional
     public void delete(Long id) {
-        foodRepository.deleteById(id);
+        try {
+            foodRepository.deleteById(id);
+        } catch (EmptyResultDataAccessException e) {
+            throw new ResourceNotFoundException(id);
+        } catch (DataIntegrityViolationException e) {
+            throw new DatabaseException(e.getMessage());
+        }
     }
 }
