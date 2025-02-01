@@ -1,24 +1,18 @@
 package com.souza.charles.digitalMenu.service;
-/*
- Tutorial title: Building a Full-Stack Application with Java Spring and React
- Instructor: Fernanda Kipper - kipperDev
- Project adapted by: Charles Fernandes de Souza
- Date: January 31, 2025
- */
 
 import com.souza.charles.digitalMenu.dto.FoodRequestDTO;
 import com.souza.charles.digitalMenu.dto.FoodResponseDTO;
 import com.souza.charles.digitalMenu.entities.Food;
 import com.souza.charles.digitalMenu.repository.FoodRepository;
-import com.souza.charles.digitalMenu.service.exceptions.DatabaseException;
-import com.souza.charles.digitalMenu.service.exceptions.ResourceNotFoundException;
+import com.souza.charles.digitalMenu.service.exceptions.*;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.dao.InvalidDataAccessResourceUsageException;
+import org.springframework.jdbc.BadSqlGrammarException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.DeleteMapping;
 
 import java.util.List;
 
@@ -30,16 +24,30 @@ public class FoodService {
 
     @Transactional
     public FoodResponseDTO insert(FoodRequestDTO data) {
-        Food food = new Food(data);
-        Food create = foodRepository.save(food);
-        return new FoodResponseDTO(create);
+        try {
+            Food food = new Food(data);
+            Food create = foodRepository.save(food);
+            return new FoodResponseDTO(create);
+        } catch (DataIntegrityViolationException e) {
+            throw new InvalidDataException();
+        } catch (InvalidHttpMessageException e) {
+            throw new InvalidHttpMessageException(e.getMessage());
+        }
     }
 
     @Transactional(readOnly = true)
     public List<FoodResponseDTO> findAll() {
-        return foodRepository.findAll().stream()
-                .map(FoodResponseDTO::new)
-                .toList();
+        try {
+            List<Food> foods = foodRepository.findAll();
+            if (foods.isEmpty()) {
+                throw new EmptyTableException();
+            }
+            return foods.stream()
+                    .map(FoodResponseDTO::new)
+                    .toList();
+        } catch (InvalidDataAccessResourceUsageException e) {
+            throw new EmptyTableException();
+        }
     }
 
     @Transactional(readOnly = true)
@@ -57,6 +65,8 @@ public class FoodService {
             return new FoodResponseDTO(updated);
         } catch (EntityNotFoundException e) {
             throw new ResourceNotFoundException(id);
+        } catch (BadSqlGrammarException e) {
+            throw new SQLGrammarException(e.getMessage());
         }
     }
 
@@ -66,7 +76,6 @@ public class FoodService {
         entity.setImgUri(data.imgUri());
     }
 
-    @DeleteMapping(value = "/{id}")
     @Transactional
     public void delete(Long id) {
         try {
@@ -75,6 +84,9 @@ public class FoodService {
             throw new ResourceNotFoundException(id);
         } catch (DataIntegrityViolationException e) {
             throw new DatabaseException(e.getMessage());
+        } catch (InvalidDataAccessResourceUsageException e) {
+            throw new EmptyTableException();
         }
     }
 }
+

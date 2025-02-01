@@ -587,7 +587,6 @@ DELETE http://localhost:8080/foods/1
 ***
 ### 12. Exception Handling - UPDATE:
 This section covers the implementation of exception handling for the `update` operation in the `FoodService` class, introducing custom exceptions and centralized error handling mechanisms.
-
 #### 12.1 Update Method update in FoodService:
 - Modify the `update` method to throw the custom `ResourceNotFoundException`:
 ````java
@@ -639,6 +638,167 @@ Body -> raw -> JSON
 #### Key Attributes Explained:
 - `timestamp`: Indicates when the error occurred;
 - `status`: The HTTP status code `404` for `Not Found`;
+- `error`: Short description of the issue;
+- `message`: Detailed information, including the resource identifier;
+- `path`: The URI path of the failed request.
+***
+### 13. Exception Handling for `insert` and `findAll` Methods:
+- This section covers the implementation of exception handling for the `insert` and `findAll` operations in the `FoodService` class, introducing custom exceptions and centralized error handling mechanisms.
+#### 13.1 **NEW CLASS:** `services.exceptions.InvalidDataException`:
+- Custom exception created to handle invalid data input during the `insert` operation;
+- Constructor:
+````java
+public class InvalidDataException extends RuntimeException {
+    public InvalidDataException() {
+        super("Data integrity violation. Check the provided data.");
+    }
+}
+````
+#### 13.2 **NEW CLASS:** `services.exceptions.EmptyTableException`:
+- Custom exception created to handle cases where the database table is empty or does not exist during the `findAll` operation;
+- Constructor:
+````java
+public class EmptyTableException extends RuntimeException {
+    public EmptyTableException() {
+        super("The requested table is empty or does not exist.");
+    }
+}
+````
+#### 13.3 **NEW CLASS**: `services.exceptions.SQLGrammarException`:
+- Custom exception created to handle `SQL` syntax errors during database operations;
+- Constructor:
+````java
+public SQLGrammarException(String message) {
+super(message);
+}
+````
+#### 13.4 **NEW CLASS**: `services.exceptions.InvalidHttpMessageException`:
+- Custom exception created to handle invalid `HTTP` message formats during the `insert` operation;
+- Constructor:
+````java
+public InvalidHttpMessageException(String message) {
+super(message);
+}
+````
+#### 13.5 **UPDATE CLASS**: `controller.exceptions.ResourceExceptionHandler`:
+**New Method:** handleBadRequestException(`InvalidDataException` e, HttpServletRequest request) handles invalid data input exceptions;
+**New Method:** handleEmptyTableException(`EmptyTableException` e, HttpServletRequest request) handles empty table exceptions;
+**New Method:** handleSQLGrammarException(`SQLGrammarException` e, HttpServletRequest request) handles SQL grammar exceptions;
+**New Method:** handleHttpMessageNotReadable(`InvalidHttpMessageException` e, HttpServletRequest request) handles invalid HTTP message exceptions.
+####  13.6 **UPDATE METHOD**: `insert` in `FoodService`:
+- Modify the `insert` method to throw the custom `InvalidDataException` and `InvalidHttpMessageException`:
+````java
+@Transactional
+public FoodResponseDTO insert(FoodRequestDTO data) {
+  try {
+    Food food = new Food(data);
+    Food create = foodRepository.save(food);
+    return new FoodResponseDTO(create);
+  } catch (DataIntegrityViolationException e) {
+    throw new InvalidDataException();
+  } catch (InvalidHttpMessageException e) {
+    throw new InvalidHttpMessageException(e.getMessage());
+  }
+}
+````
+#### 13.7 **UPDATE METHOD**: `findAll` in `FoodService`:
+- Modify the `findAll` method to throw the custom `EmptyTableException`:
+````java
+@Transactional(readOnly = true)
+public List<FoodResponseDTO> findAll() {
+  try {
+    List<Food> foods = foodRepository.findAll();
+    if (foods.isEmpty()) {
+      throw new EmptyTableException();
+    }
+    return foods.stream()
+            .map(FoodResponseDTO::new)
+            .toList();
+  } catch (InvalidDataAccessResourceUsageException e) {
+    throw new EmptyTableException();
+  }
+}
+````
+#### 13.8 Requesting and Responding Food Data via Spring Boot RESTful API:
+#### 13.8.1 Setting Up the RESTful API for HTTP Methods (Idempotent):
+- **Endpoint**: POST `/foods`;
+- **Purpose**: Inserts a new Food item into the database.
+#### 13.8.2 Example POST Request (Invalid Data):
+-**Scenario**: The provided data is invalid, triggering the custom error response with a `400 Bad Request` status code:
+````json
+POST http://localhost:8080/foods
+Body -> raw -> JSON
+````
+````json
+{
+  "title": "Tapioca de Frango",
+  "price": -1.0,
+  "imgUri": "https://github.com/souzafcharles/Java-Spring-React-Fullstack/raw/main/src/main/resources/img/tapioca.jpg"
+}
+````
+#### 13.8.3 Example Error Response:
+````json
+{
+  "timestamp": "2025-01-31T22:15:53Z",
+  "status": 400,
+  "error": "Invalid data provided. Please check the input and try again.",
+  "message": "Invalid data provided. Please check the input and try again.",
+  "path": "/foods"
+}
+````
+#### 13.8.4 Example POST Request (Invalid HTTP Message):
+- **Scenario**: The HTTP message format is invalid, triggering the custom error response with a `400 Bad Request` status code:
+````json
+POST http://localhost:8080/foods
+Body -> raw -> Text
+Invalid JSON format
+````
+#### 13.8.5 Example Error Response:
+````json
+{
+  "timestamp": "2025-01-31T19:18:17Z",
+  "status": 400,
+  "error": "Invalid input format. Please verify the request data.",
+  "message": "Invalid input format. Please verify the request data.",
+  "path": "/foods"
+}
+````
+#### 13.8.6 Setting Up the RESTful API for HTTP Methods (Idempotent):
+-**Endpoint** GET `/foods`;
+-**Purpose**: Retrieves all Food items from the database.
+#### 13.8.7 Example GET Request (Empty Table):
+-**Scenario**: The database table is empty, triggering the custom error response with a `204 No Content` status code:
+````json
+GET http://localhost:8080/foods
+````
+#### 13.8.8 Example Error Response:
+````json
+{
+  "timestamp": "2025-01-31T19:18:17Z",
+  "status": 204,
+  "error": "The requested table is empty or does not exist.",
+  "message": "The requested table is empty or does not exist.",
+  "path": "/foods"
+}
+````
+#### 13.8.9 Example GET Request (SQL Grammar Error):
+-**Scenario**: An SQL grammar error occurs, triggering the custom error response with a `500 Internal Server Error` status code:
+````json
+GET http://localhost:8080/foods
+````
+#### 13.8.10 Example Error Response:
+````json
+{
+  "timestamp": "2025-01-31T19:18:17Z",
+  "status": 500,
+  "error": "SQL grammar error. Please check the database query syntax.",
+  "message": "SQL grammar error. Please check the database query syntax.",
+  "path": "/foods"
+}
+````
+#### Key Attributes Explained:
+- `timestamp`: Indicates when the error occurred;
+- `status`: The HTTP status code (either `400` for `Bad Request`, `204` for `No Content`, or `500` for `Internal Server Error`);
 - `error`: Short description of the issue;
 - `message`: Detailed information, including the resource identifier;
 - `path`: The URI path of the failed request.
