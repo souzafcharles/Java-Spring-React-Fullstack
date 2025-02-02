@@ -1,5 +1,10 @@
 package com.souza.charles.digitalMenu.service;
-
+/*
+ Tutorial title: Building a Full-Stack Application with Java Spring and React
+ Instructor: Fernanda Kipper - kipperDev
+ Project adapted by: Charles Fernandes de Souza
+ Date: February 01, 2025
+ */
 import com.souza.charles.digitalMenu.dto.FoodRequestDTO;
 import com.souza.charles.digitalMenu.dto.FoodResponseDTO;
 import com.souza.charles.digitalMenu.entities.Food;
@@ -10,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.dao.InvalidDataAccessResourceUsageException;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.jdbc.BadSqlGrammarException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -30,7 +36,7 @@ public class FoodService {
             return new FoodResponseDTO(create);
         } catch (DataIntegrityViolationException e) {
             throw new InvalidDataException();
-        } catch (InvalidHttpMessageException e) {
+        } catch (HttpMessageNotReadableException e) {
             throw new InvalidHttpMessageException(e.getMessage());
         }
     }
@@ -89,4 +95,3 @@ public class FoodService {
         }
     }
 }
-
