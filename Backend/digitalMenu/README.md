@@ -1,9 +1,9 @@
 ## Part 1 - Project Requirements and Configurations:
 ### Food Domain Entity:
-![Food Domain Entity](https://github.com/souzafcharles/Java-Spring-React-Fullstack/raw/main/src/main/resources/static/img/food-entity.png)
+![Food Domain Entity](https://github.com/souzafcharles/Java-Spring-React-Fullstack/blob/main/Backend/digitalMenu/src/main/resources/static/img/food-entity.png)
 ***
 ### Logical Layers:
-![Logical Layers](https://github.com/souzafcharles/Java-Spring-React-Fullstack/raw/main/src/main/resources/static/img/logical-layers.png)
+![Logical Layers](https://github.com/souzafcharles/Java-Spring-React-Fullstack/blob/main/Backend/digitalMenu/src/main/resources/static/img/logical-layers.png)
 ***
 ### 1. Backend Requirements Specification:
 #### 1.1. Dependencies and Tools:
@@ -238,91 +238,91 @@ http://localhost:8080/foods
     "id":1,
     "title":"Batata Frita Rústica",
     "price":24.99,
-    "imgUri":"https://github.com/souzafcharles/Java-Spring-React-Fullstack/raw/main/src/main/resources/static/img/rustic-fries.webp"
+    "imgUri":"https://raw.githubusercontent.com/souzafcharles/Java-Spring-React-Fullstack/refs/heads/main/Backend/digitalMenu/src/main/resources/static/img/rustic-fries.webp"
   },
   {
     "id":2,
     "title":"Coxinha de Carne Seca",
     "price":9.99,
-    "imgUri":"https://github.com/souzafcharles/Java-Spring-React-Fullstack/raw/main/src/main/resources/static/img/beef-coxinha.webp"
+    "imgUri":"https://raw.githubusercontent.com/souzafcharles/Java-Spring-React-Fullstack/refs/heads/main/Backend/digitalMenu/src/main/resources/static/img/beef-coxinha.webp"
   },
   {
     "id":3,
     "title":"Esfirra de Frango",
     "price":23.99,
-    "imgUri":"https://github.com/souzafcharles/Java-Spring-React-Fullstack/raw/main/src/main/resources/static/img/chicken-esfiha.webp"
+    "imgUri":"https://raw.githubusercontent.com/souzafcharles/Java-Spring-React-Fullstack/refs/heads/main/Backend/digitalMenu/src/main/resources/static/img/chicken-esfiha.webp"
   },
   {
     "id":4,
     "title":"Feijoada",
     "price":34.99,
-    "imgUri":"https://github.com/souzafcharles/Java-Spring-React-Fullstack/raw/main/src/main/resources/static/img/feijoada.webp"
+    "imgUri":"https://raw.githubusercontent.com/souzafcharles/Java-Spring-React-Fullstack/refs/heads/main/Backend/digitalMenu/src/main/resources/static/img/feijoada.webp"
   },
   {
     "id":5,
     "title":"Hambúrguer",
     "price":29.99,
-    "imgUri":"https://github.com/souzafcharles/Java-Spring-React-Fullstack/raw/main/src/main/resources/static/img/burger.webp"
+    "imgUri":"https://raw.githubusercontent.com/souzafcharles/Java-Spring-React-Fullstack/refs/heads/main/Backend/digitalMenu/src/main/resources/static/img/burger.webp"
   },
   {
     "id":6,
     "title":"Hambúrguer Vegetariano",
     "price":24.99,
-    "imgUri":"https://github.com/souzafcharles/Java-Spring-React-Fullstack/raw/main/src/main/resources/static/img/veggie-burger.webp"
+    "imgUri":"https://raw.githubusercontent.com/souzafcharles/Java-Spring-React-Fullstack/refs/heads/main/Backend/digitalMenu/src/main/resources/static/img/veggie-burger.webp"
   },
   {
     "id":7,
     "title":"Lasanha à Bolonhesa",
     "price":45.99,
-    "imgUri":"https://github.com/souzafcharles/Java-Spring-React-Fullstack/raw/main/src/main/resources/static/img/lasagna.webp"
+    "imgUri":"https://raw.githubusercontent.com/souzafcharles/Java-Spring-React-Fullstack/refs/heads/main/Backend/digitalMenu/src/main/resources/static/img/lasagna.webp"
   },
   {
     "id":8,
     "title":"Macarronada à Bolonhesa",
     "price":39.99,
-    "imgUri":"https://github.com/souzafcharles/Java-Spring-React-Fullstack/raw/main/src/main/resources/static/img/spaghetti.webp"
+    "imgUri":"https://raw.githubusercontent.com/souzafcharles/Java-Spring-React-Fullstack/refs/heads/main/Backend/digitalMenu/src/main/resources/static/img/spaghetti.webp"
   },
   {
     "id":9,
     "title":"Omelete",
     "price":14.99,
-    "imgUri":"https://github.com/souzafcharles/Java-Spring-React-Fullstack/raw/main/src/main/resources/static/img/omelette.webp"
+    "imgUri":"https://raw.githubusercontent.com/souzafcharles/Java-Spring-React-Fullstack/refs/heads/main/Backend/digitalMenu/src/main/resources/static/img/omelette.webp"
   },
   {
     "id":10,
     "title":"Pizza de Calabresa",
     "price":49.99,
-    "imgUri":"https://github.com/souzafcharles/Java-Spring-React-Fullstack/raw/main/src/main/resources/static/img/pizza.webp"
+    "imgUri":"https://raw.githubusercontent.com/souzafcharles/Java-Spring-React-Fullstack/refs/heads/main/Backend/digitalMenu/src/main/resources/static/img/pizza.webp"
   },
   {
     "id":11,
     "title":"Prato Feito",
     "price":29.99,
-    "imgUri":"https://github.com/souzafcharles/Java-Spring-React-Fullstack/raw/main/src/main/resources/static/img/set-meal.webp"
+    "imgUri":"https://raw.githubusercontent.com/souzafcharles/Java-Spring-React-Fullstack/refs/heads/main/Backend/digitalMenu/src/main/resources/static/img/set-meal.webp"
   },
   {
     "id":12,
     "title":"Sanduíche Natural",
     "price":25.99,
-    "imgUri":"https://github.com/souzafcharles/Java-Spring-React-Fullstack/raw/main/src/main/resources/static/img/sandwich.webp"
+    "imgUri":"https://raw.githubusercontent.com/souzafcharles/Java-Spring-React-Fullstack/refs/heads/main/Backend/digitalMenu/src/main/resources/static/img/sandwich.webp"
   },
   {
     "id":13,
     "title":"Sorvete de Chocolate",
     "price":19.99,
-    "imgUri":"https://github.com/souzafcharles/Java-Spring-React-Fullstack/raw/main/src/main/resources/static/img/ice-cream.webp"
+    "imgUri":"https://raw.githubusercontent.com/souzafcharles/Java-Spring-React-Fullstack/refs/heads/main/Backend/digitalMenu/src/main/resources/static/img/ice-cream.webp"
   },
   {
     "id":14,
     "title":"Suco de Morango",
     "price":14.99,
-    "imgUri":"https://github.com/souzafcharles/Java-Spring-React-Fullstack/raw/main/src/main/resources/static/img/strawberry-juice.webp"
+    "imgUri":"https://raw.githubusercontent.com/souzafcharles/Java-Spring-React-Fullstack/refs/heads/main/Backend/digitalMenu/src/main/resources/static/img/strawberry-juice.webp"
   },
   {
     "id":15,
     "title":"Sushi",
     "price":59.99,
-    "imgUri":"https://github.com/souzafcharles/Java-Spring-React-Fullstack/raw/main/src/main/resources/static/img/sushi.webp"
+    "imgUri":"https://raw.githubusercontent.com/souzafcharles/Java-Spring-React-Fullstack/refs/heads/main/Backend/digitalMenu/src/main/resources/static/img/sushi.webp"
   }
 ]
 ````
@@ -337,7 +337,7 @@ Body -> raw -> JSON
 {
   "title": "Tapioca de Carne Seca",
   "price": 21.99,
-  "imgUri": "https://github.com/souzafcharles/Java-Spring-React-Fullstack/raw/main/src/main/resources/img/tapioca.jpg"
+  "imgUri": "https://raw.githubusercontent.com/souzafcharles/Java-Spring-React-Fullstack/refs/heads/main/Backend/digitalMenu/src/main/resources/static/img/tapioca.webp"
 }
 ````
 #### 5.6. Example Response:
@@ -346,7 +346,7 @@ Body -> raw -> JSON
   "id": 16,
   "title": "Tapioca de Carne Seca",
   "price": 21.99,
-  "imgUri": "https://github.com/souzafcharles/Java-Spring-React-Fullstack/raw/main/src/main/resources/img/tapioca.jpg"
+  "imgUri": "https://raw.githubusercontent.com/souzafcharles/Java-Spring-React-Fullstack/refs/heads/main/Backend/digitalMenu/src/main/resources/static/img/tapioca.webp"
 }
 ````
 #### 5.7. Setting Up the RESTful API for HTTP Methods (Idempotent):
@@ -362,7 +362,7 @@ http://localhost:8080/foods/10
   "id": 10,
   "title": "Pizza de Calabresa",
   "price": 49.99,
-  "imgUri": "https://github.com/souzafcharles/Java-Spring-React-Fullstack/raw/main/src/main/resources/static/img/pizza.jpg"
+  "imgUri": "https://raw.githubusercontent.com/souzafcharles/Java-Spring-React-Fullstack/refs/heads/main/Backend/digitalMenu/src/main/resources/static/img/pizza.jpg"
 }
 ````
 #### 5.10. Setting Up the RESTful API for HTTP Methods (Idempotent):
@@ -376,7 +376,7 @@ Body -> raw -> JSON
 {
   "title": "Temaki de Salmão",
   "price": 34.99,
-  "imgUri": "https://github.com/souzafcharles/Java-Spring-React-Fullstack/raw/main/src/main/resources/img/tamaki.jpg"
+  "imgUri": "https://raw.githubusercontent.com/souzafcharles/Java-Spring-React-Fullstack/refs/heads/main/Backend/digitalMenu/src/main/resources/static/img/temaki.webp"
 }
 ````
 #### 5.12. Example Response:
@@ -385,7 +385,7 @@ Body -> raw -> JSON
   "id": 16,
   "title": "Temaki de Salmão",
   "price": 20.99,
-  "imgUri": "https://github.com/souzafcharles/Java-Spring-React-Fullstack/raw/main/src/main/resources/img/temaki.jpg"
+  "imgUri": "https://raw.githubusercontent.com/souzafcharles/Java-Spring-React-Fullstack/refs/heads/main/Backend/digitalMenu/src/main/resources/static/img/temaki.jpg"
 }
 ````
 #### 5.13. Setting Up the RESTful API for HTTP Methods (Idempotent):
@@ -607,7 +607,7 @@ Body -> raw -> JSON
 {
   "title": "Crepioca de Carne Seca",
   "price": 22.99,
-  "imgUri": "https://github.com/souzafcharles/Java-Spring-React-Fullstack/raw/main/src/main/resources/img/crepioca.jpg"
+  "imgUri": "https://raw.githubusercontent.com/souzafcharles/Java-Spring-React-Fullstack/refs/heads/main/Backend/digitalMenu/src/main/resources/static/img/crepioca.jpg"
 }
 ````
 #### 8.2.3. Example Error Response:
@@ -718,7 +718,7 @@ Body -> raw -> JSON
 {
   "title": "Tapioca de Frango",
   "price": -1.0,
-  "imgUri": "https://github.com/souzafcharles/Java-Spring-React-Fullstack/raw/main/src/main/resources/img/tapioca.jpg"
+  "imgUri": "https://raw.githubusercontent.com/souzafcharles/Java-Spring-React-Fullstack/refs/heads/main/Backend/digitalMenu/src/main/resources/static/img/tapioca.jpg"
 }
 ````
 #### 9.8.3. Example Error Response:

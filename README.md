@@ -11,7 +11,7 @@
 This guide provides a structured approach to developing a full-stack application using <code>Java Spring</code>, <code>React</code>, and <code>PostgreSQL</code>. The process is divided into two key phases: backend development and frontend development.
 </p>
 
-### Part 1: Backend Development with Java Spring and PostgreSQL:
+### Part 1: [Backend Development with Java Spring and PostgreSQL](https://github.com/souzafcharles/Java-Spring-React-Fullstack/tree/main/Backend/digitalMenu):
 <p align="justify">
 This section details the construction of the application's backend using the <code>Java Spring</code> framework. The initial step involves creating a <code>Spring Boot</code> project and configuring the <code>PostgreSQL</code> database. Subsequently, the guide covers the creation of data models and <code>RESTful</code> controllers to manage <code>CRUD</code> operations within the application. The utilisation of essential libraries, such as <code>Spring Data JPA</code>, will be explored to streamline data access and manipulation.
 </p>
@@ -37,7 +37,7 @@ This section details the construction of the application's backend using the <co
 | 🦅 Flyway Migration     | SQL             | Version control for your database so you can migrate from any version (incl. an empty database) to the latest version of the schema  |
 | 🛢️ H2 Database Engine   | SQL             | Provides an in-memory and lightweight relational database for development and testing purposes                                       |
 ***
-### Part 2: Frontend Development with React and TypeScript:
+### Part 2: [Frontend Development with React and TypeScript](https://github.com/souzafcharles/Java-Spring-React-Fullstack/tree/main/Frontend/digitalMenu):
 <p align="justify">
 This section focuses on developing the application's frontend using the <code>React</code> library and <code>TypeScript</code>. The process includes creating <code>React</code> components and leveraging <code>React Hooks</code> to implement the application's functionalities. The guide also explores the use of <code>TypeScript</code> to enhance code maintainability. Furthermore, it details the connection of the frontend to the backend (developed in Part 1) using <code>Axios</code> for <code>HTTP</code> requests and <code>React Query</code> for fetching, caching, synchronising, and updating server state within the application.
 </p>
@@ -67,6 +67,6 @@ This section focuses on developing the application's frontend using the <code>Re
 | 🔄 React Hooks ESLint   | Development      | Ensures proper usage of React Hooks                      |
 | 🔧 React Refresh ESLint | Development      | Provides linting for Vite’s fast-refresh mechanism       |
 ***
-▶️ **Tutorial Video kipperDev**: [Part 1](https://www.youtube.com/watch?v=lUVureR5GqI&ab_channel=FernandaKipper%7CDev)</br>
-▶️ **Tutorial Video kipperDev**: [Part 2](https://www.youtube.com/watch?v=WHruc3_2z68&ab_channel=FernandaKipper%7CDev)
+▶️ **Tutorial Video kipperDev**: [Part 1: Backend Development with Java Spring and PostgreSQL](https://www.youtube.com/watch?v=lUVureR5GqI&ab_channel=FernandaKipper%7CDev)</br>
+▶️ **Tutorial Video kipperDev**: [Part 2: Frontend Development with React and TypeScript](https://www.youtube.com/watch?v=WHruc3_2z68&ab_channel=FernandaKipper%7CDev)
 ***
