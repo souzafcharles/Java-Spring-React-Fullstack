@@ -25,8 +25,8 @@
 | 🐘 PostgreSQL Driver    | SQL             | A JDBC and R2DBC driver that allows Java programs to connect to a PostgreSQL database using standard, database independent Java code |
 | 🗝️ dotenv-java          | Configuration   | Loads environment variables from a `.env` file into the application, aiding in secure configuration management                       |
 | 🦅 Flyway Migration     | SQL             | Version control for your database so you can migrate from any version (incl. an empty database) to the latest version of the schema  |
+| 🛢️ H2 Database Engine    | SQL             | Provides an in-memory and lightweight relational database for development and testing purposes                                       |
 ***
-
 ## Instructions:
 <p align="justify">
 This guide provides a structured approach to developing a full-stack application using <code>Java Spring</code>, <code>React</code>, and <code>PostgreSQL</code>. The process is divided into two key phases: backend development and frontend development.
@@ -93,14 +93,17 @@ spring.jpa.properties.hibernate.format_sql=true
 #### 2.3. Configuration of the `application-dev.properties` File:
 - This file contains specific configurations for the `development` environment, utilising the `PostgreSQL` database:
 ````properties
-# H2 Connection
-spring.datasource.url=jdbc:h2:mem:testdb
-spring.datasource.username=sa
-spring.datasource.password=
+# PostgreSQL Connection
+spring.datasource.url=${DATABASE_URL}
+spring.datasource.username=${DATABASE_USERNAME}
+spring.datasource.password=${DATABASE_PASSWORD}
 
-# H2 Client
-spring.h2.console.enabled=true
-spring.h2.console.path=/h2-console
+# Database Dialect Configuration
+spring.jpa.database-platform=org.hibernate.dialect.PostgreSQLDialect
+spring.jpa.properties.hibernate.jdbc.lob.non_contextual_creation=true
+
+# Schema Management
+spring.jpa.hibernate.ddl-auto=none
 
 # Show SQL
 spring.jpa.show-sql=true
