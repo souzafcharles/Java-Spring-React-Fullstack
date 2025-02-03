@@ -298,11 +298,11 @@ export interface FoodData {
   - The data array is iterated using `.map()` to render multiple `Card` components;
   - If no data is available, the grid should remain empty until the fetch completes;
   - The structure ensures responsiveness, adjusting column count dynamically on smaller screens.
-- **Home Screen with Displayed Items:**  
-  Below is an example of the home screen displaying the food items:  
-  ![Home Screen with Items](https://github.com/souzafcharles/Java-Spring-React-Fullstack/blob/main/Frontend/digitalMenu/public/home.png)
+  
+#### 10.1. Home Screen with Displayed Items - Example of the home screen displaying the food items:
+![Home Screen with Items](https://github.com/souzafcharles/Java-Spring-React-Fullstack/blob/main/Frontend/digitalMenu/public/home.png)
 
-  ### 11. Form Validation and Error Handling:
+### 11. Form Validation and Error Handling:
 
 - **Path:** `src/components/create-modal/FormModal.tsx`;
 - **Purpose:** Ensure all form fields are correctly filled before submission;
@@ -318,10 +318,10 @@ export interface FoodData {
 - **Form Behavior:**
   - If any field is missing, the form should prevent submission;
   - If all fields are filled correctly, submit the data and close the modal;
-  - The error message should disappear when the user corrects the input;
-- **Screen Modal Form Error:**
-  - Below is an example of how the error message should appear when validation fails:  
-    ![Modal Form Error](https://github.com/souzafcharles/Java-Spring-React-Fullstack/blob/main/Frontend/digitalMenu/public/modal-error.png)
+  - The error message should disappear when the user corrects the input.
+  
+#### 11.1. Screen Modal Form Error - Example of how the error message should appear when validation fails:
+![Modal Form Error](https://github.com/souzafcharles/Java-Spring-React-Fullstack/blob/main/Frontend/digitalMenu/public/modal-error.png)
 
 ### 12. Item Insertion Form:
 
@@ -338,10 +338,8 @@ export interface FoodData {
     - Validates if all fields are correctly filled;
     - Creates a `FoodData` object and sends it via `mutate()`;
   - Use the `useFoodDataMutate()` hook for data mutation and submission to the backend;
-  - Automatically close the modal after a successful insertion (`useEffect` dependent on `isSuccess`);
-- **Form Completion Example:**  
-  Below is an example of the form being correctly filled before submission:  
-  ![Form Completion](https://github.com/souzafcharles/Java-Spring-React-Fullstack/blob/main/Frontend/digitalMenu/public/modal-insert.png)
-- **Home Screen with New Item Inserted:**  
-  After successfully inserting the new item, it should appear on the home screen:  
-  ![Home Screen Updated](https://github.com/souzafcharles/Java-Spring-React-Fullstack/blob/main/Frontend/digitalMenu/public/home-inserted.png)
+  - Automatically close the modal after a successful insertion (`useEffect` dependent on `isSuccess`).
+#### 12.1. Form Completion Example - Example of the form being correctly filled before submission:    
+![Form Completion](https://github.com/souzafcharles/Java-Spring-React-Fullstack/blob/main/Frontend/digitalMenu/public/modal-insert.png)
+#### 12.2. Home Screen with New Item Inserted - After successfully inserting the new item, it should appear on the home screen:
+![Home Screen Updated](https://github.com/souzafcharles/Java-Spring-React-Fullstack/blob/main/Frontend/digitalMenu/public/home-inserted.png)
