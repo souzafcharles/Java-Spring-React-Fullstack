@@ -1,0 +1,101 @@
+ /*
+ Tutorial title: Building a Full-Stack Application with Java Spring and React
+ Instructor: Fernanda Kipper - kipperDev
+ Project adapted by: Charles Fernandes de Souza
+ Date: February 03, 2025
+ */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.4);
+  overflow: hidden;
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+}
+
+.modal-body {
+  background-color: rgb(255, 255, 255);
+  padding: 24px;
+  height: 60%;
+  width: 60%;
+  border-radius: 24px;
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+}
+
+.modal-body h2 {
+  font-size: 32px;
+  color: #616161;
+}
+
+.modal-input-container {
+  width: calc(100% - 24px);
+}
+
+.modal-overlay .modal-body input {
+  padding: 12px;
+  border: 2px solid #c6c5c5c5;
+  background-color: #ffffff;
+  color: #000000;
+  font-size: 18px;
+  line-height: 24px;
+  border-radius: 12px;
+  width: 100%;
+  margin-bottom: 12px;
+}
+
+.modal-overlay .modal-body label {
+  color: #242424;
+  font-weight: 600;
+  margin-bottom: 8px;
+  font-size: 18px;
+}
+
+.modal-error-message {
+  color: red;
+  font-size: 18px;
+  margin-top: 8px;
+}
+
+.modal-input-wrapper {
+  margin-bottom: 10px;
+}
+
+.modal-overlay .modal-body .modal-btn-insert {
+  background-color: #0275d8;
+  color: white;
+  font-weight: bold;
+  position: fixed;
+  bottom: 16px;
+  right: 24px;
+  width: 12vw;
+  transition: all 0.1s linear 0.1s;
+}
+
+.modal-overlay .modal-body .modal-btn-insert:hover {
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 7px 0px;
+  transform: scale(1.1);
+}
+
+.modal-overlay .modal-body .modal-btn-back {
+  background-color: #0275d8;
+  color: white;
+  font-weight: bold;
+  position: fixed;
+  bottom: 16px;
+  left: 24px;
+  width: 12vw;
+  transition: all 0.1s linear 0.1s;
+}
+
+.modal-overlay .modal-body .modal-btn-back:hover {
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 7px 0px;
+  transform: scale(1.1);
+}

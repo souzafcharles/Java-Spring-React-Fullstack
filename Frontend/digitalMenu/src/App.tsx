@@ -1,34 +1,39 @@
+ /*
+ Tutorial title: Building a Full-Stack Application with Java Spring and React
+ Instructor: Fernanda Kipper - kipperDev
+ Project adapted by: Charles Fernandes de Souza
+ Date: February 03, 2025
+ */
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
-
+import { Card } from './components/card/card';
+import { FoodData } from './interface/FoodData';
+import { useFoodData } from './hooks/useFoodData';
+import { FormModal } from './components/form-modal/form-modal';
+ 
 function App() {
-  const [count, setCount] = useState(0)
+  const { data } = useFoodData();
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleOpenModal = () => {
+    setIsModalOpen(prev => !prev)
+  }
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <div className="container">
+      <h1>Cardápio</h1>
+      <div className="card-grid">
+        {data?.map(foodData => 
+          <Card
+            price={foodData.price} 
+            title={foodData.title} 
+            image={foodData.image}
+          />
+        )}
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+      {isModalOpen && <FormModal closeModal={handleOpenModal}/>}
+      <button onClick={handleOpenModal}>Novo Item</button>
+    </div>
   )
 }
 

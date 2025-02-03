@@ -19,23 +19,22 @@ public class Food implements Serializable {
     private Long id;
     private String title;
     private Double price;
-    @Column(name = "imguri")
-    private String imgUri;
+    private String image;
 
     public Food() {
     }
 
-    public Food(Long id, String title, Double price, String imgUri) {
+    public Food(Long id, String title, Double price, String image) {
         this.id = id;
         this.title = title;
         this.price = price;
-        this.imgUri = imgUri;
+        this.image = image;
     }
 
     public Food(FoodRequestDTO data) {
         this.title = data.title();
         this.price = data.price();
-        this.imgUri = data.imgUri();
+        this.image = data.image();
     }
 
     public Long getId() {
@@ -62,12 +61,12 @@ public class Food implements Serializable {
         this.price = price;
     }
 
-    public String getImgUri() {
-        return imgUri;
+    public String getImage() {
+        return image;
     }
 
-    public void setImgUri(String imgUri) {
-        this.imgUri = imgUri;
+    public void setImage(String image) {
+        this.image = image;
     }
 
     @Override

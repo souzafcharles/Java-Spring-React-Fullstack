@@ -79,7 +79,7 @@ public class FoodService {
     private void updateData(Food entity, FoodRequestDTO data) {
         entity.setTitle(data.title());
         entity.setPrice(data.price());
-        entity.setImgUri(data.imgUri());
+        entity.setImage(data.image());
     }
 
     @Transactional
