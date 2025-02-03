@@ -76,11 +76,11 @@ This section focuses on developing the application's frontend using the <code>Re
 
 ***
 
-▶️ **Tutorial Video kipperDev**: [Part 1: Backend Development with Java Spring and PostgreSQL](https://www.youtube.com/watch?v=lUVureR5GqI&ab_channel=FernandaKipper%7CDev)</br>
-▶️ **Tutorial Video kipperDev**: [Part 2: Frontend Development with React and TypeScript](https://www.youtube.com/watch?v=WHruc3_2z68&ab_channel=FernandaKipper%7CDev)
+▶️ **Tutorial Video kipperDev**: 
+- [Part 1](https://www.youtube.com/watch?v=lUVureR5GqI&ab_channel=FernandaKipper%7CDev): Backend Development with Java Spring and PostgreSQL;
+- [Part 2](https://www.youtube.com/watch?v=WHruc3_2z68&ab_channel=FernandaKipper%7CDev): Frontend Development with React and TypeScript.
 
 ***
-- **Home Screen with Displayed Items:**  
-- Below is the home screen displaying the food items:  
+## Home Screen with Displayed Items: 
 ![Home Screen Updated](https://github.com/souzafcharles/Java-Spring-React-Fullstack/blob/main/Frontend/digitalMenu/public/home-inserted.png)
 
