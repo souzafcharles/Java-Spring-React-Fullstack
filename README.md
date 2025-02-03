@@ -69,7 +69,7 @@ This section focuses on developing the application's frontend using the <code>Re
 | 🔍 @types/react          | Type Definitions | Provides TypeScript definitions for React                |
 | 🔍 @types/react-dom      | Type Definitions | Provides TypeScript definitions for React DOM            |
 | 🌍 Globals               | Development      | Provides global variables and functions for ESLint rules |
-| 🔄 React Hooks ESLint    | Development      | Ensures proper usage of React Hooks                      |
+| 📐 React Hooks ESLint    | Development      | Ensures proper usage of React Hooks                      |
 | 🔧 React Refresh ESLint  | Development      | Provides linting for Vite’s fast-refresh mechanism       |
 | 🔄 @tanstack/react-query | API Management   | Data fetching and caching for React applications         |
 | 🔗 Axios                 | API Management   | Promise-based HTTP client for making API requests        |
@@ -80,3 +80,7 @@ This section focuses on developing the application's frontend using the <code>Re
 ▶️ **Tutorial Video kipperDev**: [Part 2: Frontend Development with React and TypeScript](https://www.youtube.com/watch?v=WHruc3_2z68&ab_channel=FernandaKipper%7CDev)
 
 ***
+- **Home Screen with Displayed Items:**  
+- Below is the home screen displaying the food items:  
+![Home Screen Updated](https://github.com/souzafcharles/Java-Spring-React-Fullstack/blob/main/Frontend/digitalMenu/public/home-inserted.png)
+
