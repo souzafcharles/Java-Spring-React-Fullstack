@@ -115,7 +115,7 @@ VITE v6.0.11  ready in 418 ms
 
 ### 3. Interface and Card Component:
 
-3.1. Interface Creation:
+#### 3.1. Interface Creation:
 
 - **Path:** /src/interface/;
 - **Purpose:** Define the FoodData interface to represent the structure of food items;
@@ -157,26 +157,6 @@ export interface FoodData {
 - Style the image with:
   - Top-rounded corners and a fixed size of `250px` x `200px`.
 
-### 3.4. Card Grid Layout and Data Rendering:
-
-- **Path:** `src/components/card/card.tsx`;
-- **Purpose:** Display food items dynamically from backend data in a structured grid layout;
-- **Requirements:**
-  - The card grid should use `grid-template-columns: 1fr 1fr 1fr 1fr;` to display four cards per row;
-  - Each card must contain:
-    - **Image:** Display the food item image (`image` prop);
-    - **Title:** Show the food name (`title` prop);
-    - **Price:** Display formatted price (`R$ {price}`) in bold;
-  - The card component should have a defined width (`250px`) and a shadow effect for visual separation;
-- **Data Handling and Rendering:**
-  - The `useFoodData` hook fetches food items from `http://localhost:8080/foods`;
-  - The data array is iterated using `.map()` to render multiple `Card` components;
-  - If no data is available, the grid should remain empty until the fetch completes;
-  - The structure ensures responsiveness, adjusting column count dynamically on smaller screens.
-- **Home Screen with Displayed Items:**  
-  Below is an example of the home screen displaying the inserted food items:  
-  ![Home Screen with Items](https://github.com/souzafcharles/Java-Spring-React-Fullstack/blob/main/Frontend/digitalMenu/public/home-inserted.png)
-
 ---
 
 ### 4. Form Modal Component:
@@ -212,50 +192,6 @@ export interface FoodData {
     - **Insert button:** Fixed to the bottom right corner;
     - **Back button:** Fixed to the bottom left corner;
     - Add hover effects to both buttons for scaling and shadow effects.
-
-### 4.5. Form Validation and Error Handling:
-
-- **Path:** `src/components/create-modal/FormModal.tsx`;
-- **Purpose:** Ensure all form fields are correctly filled before submission;
-- **Requirements:**
-  - Validate that all required fields (`title`, `price`, and `image`) are filled;
-  - Display an error message if any field is empty or invalid;
-  - **Error Message:** `"Todos os campos devem ser preenchidos corretamente!"`;
-  - The validation should trigger when clicking the `"Postar"` button;
-- **Error Styling:**
-  - **Text Color:** Red (`#FF0000`);
-  - **Font Size:** `18px`;
-  - **Position:** Below the form inputs;
-- **Form Behavior:**
-  - If any field is missing, the form should prevent submission;
-  - If all fields are filled correctly, submit the data and close the modal;
-  - The error message should disappear when the user corrects the input;
-- **Screen Modal Form Error:**
-  - Below is an example of how the error message should appear when validation fails:  
-    ![Modal Form Error](https://github.com/souzafcharles/Java-Spring-React-Fullstack/blob/main/Frontend/digitalMenu/public/modal-error.png)
-
-### 4.6. Item Insertion Form:
-
-- **Path:** `src/components/card/FormModal.tsx`;
-- **Purpose:** Allow users to add a new item to the menu by sending a `POST` request to the backend;
-- **Requirements for `FormModal.tsx`:**;
-  - Create a local state to store field values:
-    - **title:** Name of the item;
-    - **price:** Price of the item;
-    - **image:** URL of the item’s image;
-    - **errorMessage:** Error message if fields are not properly filled;
-  - Create a reusable `Input` component to capture user input;
-  - Implement the `submit()` function that:
-    - Validates if all fields are correctly filled;
-    - Creates a `FoodData` object and sends it via `mutate()`;
-  - Use the `useFoodDataMutate()` hook for data mutation and submission to the backend;
-  - Automatically close the modal after a successful insertion (`useEffect` dependent on `isSuccess`);
-- **Form Completion Example:**  
-  Below is an example of the form being correctly filled before submission:  
-  ![Form Completion](https://github.com/souzafcharles/Java-Spring-React-Fullstack/blob/main/Frontend/digitalMenu/public/modal-insert.png)
-- **Home Screen with New Item Inserted:**  
-  After successfully inserting the new item, it should appear on the home screen:  
-  ![Home Screen Updated](https://github.com/souzafcharles/Java-Spring-React-Fullstack/blob/main/Frontend/digitalMenu/public/home-inserted.png)
 
 ---
 
@@ -343,3 +279,69 @@ export interface FoodData {
   - Maintain `100%` width and height for flexible scaling;
   - Use embedded base64 image data to reduce external asset dependencies;
   - Ensure compatibility across browsers for rendering.
+
+---
+
+### 10. Card Grid Layout and Data Rendering:
+
+- **Path:** `src/components/card/card.tsx`;
+- **Purpose:** Display food items dynamically from backend data in a structured grid layout;
+- **Requirements:**
+  - The card grid should use `grid-template-columns: 1fr 1fr 1fr 1fr;` to display four cards per row;
+  - Each card must contain:
+    - **Image:** Display the food item image (`image` prop);
+    - **Title:** Show the food name (`title` prop);
+    - **Price:** Display formatted price (`R$ {price}`) in bold;
+  - The card component should have a defined width (`250px`) and a shadow effect for visual separation;
+- **Data Handling and Rendering:**
+  - The `useFoodData` hook fetches food items from `http://localhost:8080/foods`;
+  - The data array is iterated using `.map()` to render multiple `Card` components;
+  - If no data is available, the grid should remain empty until the fetch completes;
+  - The structure ensures responsiveness, adjusting column count dynamically on smaller screens.
+- **Home Screen with Displayed Items:**  
+  Below is an example of the home screen displaying the food items:  
+  ![Home Screen with Items](https://github.com/souzafcharles/Java-Spring-React-Fullstack/blob/main/Frontend/digitalMenu/public/home.png)
+
+  ### 11. Form Validation and Error Handling:
+
+- **Path:** `src/components/create-modal/FormModal.tsx`;
+- **Purpose:** Ensure all form fields are correctly filled before submission;
+- **Requirements:**
+  - Validate that all required fields (`title`, `price`, and `image`) are filled;
+  - Display an error message if any field is empty or invalid;
+  - **Error Message:** `"Todos os campos devem ser preenchidos corretamente!"`;
+  - The validation should trigger when clicking the `"Inserir"` button;
+- **Error Styling:**
+  - **Text Color:** Red (`#FF0000`);
+  - **Font Size:** `18px`;
+  - **Position:** Below the form inputs;
+- **Form Behavior:**
+  - If any field is missing, the form should prevent submission;
+  - If all fields are filled correctly, submit the data and close the modal;
+  - The error message should disappear when the user corrects the input;
+- **Screen Modal Form Error:**
+  - Below is an example of how the error message should appear when validation fails:  
+    ![Modal Form Error](https://github.com/souzafcharles/Java-Spring-React-Fullstack/blob/main/Frontend/digitalMenu/public/modal-error.png)
+
+### 12. Item Insertion Form:
+
+- **Path:** `src/components/card/FormModal.tsx`;
+- **Purpose:** Allow users to add a new item to the menu by sending a `POST` request to the backend;
+- **Requirements for `FormModal.tsx`:**;
+  - Create a local state to store field values:
+    - **title:** Name of the item;
+    - **price:** Price of the item;
+    - **image:** URL of the item’s image;
+    - **errorMessage:** Error message if fields are not properly filled;
+  - Create a reusable `Input` component to capture user input;
+  - Implement the `submit()` function that:
+    - Validates if all fields are correctly filled;
+    - Creates a `FoodData` object and sends it via `mutate()`;
+  - Use the `useFoodDataMutate()` hook for data mutation and submission to the backend;
+  - Automatically close the modal after a successful insertion (`useEffect` dependent on `isSuccess`);
+- **Form Completion Example:**  
+  Below is an example of the form being correctly filled before submission:  
+  ![Form Completion](https://github.com/souzafcharles/Java-Spring-React-Fullstack/blob/main/Frontend/digitalMenu/public/modal-insert.png)
+- **Home Screen with New Item Inserted:**  
+  After successfully inserting the new item, it should appear on the home screen:  
+  ![Home Screen Updated](https://github.com/souzafcharles/Java-Spring-React-Fullstack/blob/main/Frontend/digitalMenu/public/home-inserted.png)

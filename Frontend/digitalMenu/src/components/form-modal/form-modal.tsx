@@ -69,7 +69,7 @@ export function FormModal({ closeModal }: ModalProps) {
         {errorMessage && <p className="modal-error-message">{errorMessage}</p>}
         <div className="modal-button-group">
           <button onClick={submit} className="modal-btn-insert">
-            {isLoading ? "Postando..." : "Postar"}
+            {isLoading ? "Inserindo..." : "Inserir"}
           </button>
           <button onClick={closeModal} className="modal-btn-back">
           Voltar

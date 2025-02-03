@@ -16,7 +16,7 @@ This guide provides a structured approach to developing a full-stack application
 This section details the construction of the application's backend using the <code>Java Spring</code> framework. The initial step involves creating a <code>Spring Boot</code> project and configuring the <code>PostgreSQL</code> database. Subsequently, the guide covers the creation of data models and <code>RESTful</code> controllers to manage <code>CRUD</code> operations within the application. The utilisation of essential libraries, such as <code>Spring Data JPA</code>, will be explored to streamline data access and manipulation.
 </p>
 
-## Project Stack:
+## Backend Project Stack:
 | Technology        | Version   | Description                                 |
 |-------------------|-----------|---------------------------------------------|
 | ✒️ IntelliJ IDEA  | `2024.3`  | Integrated Development Environment (IDE)    |
@@ -25,18 +25,22 @@ This section details the construction of the application's backend using the <co
 | 🐦 Maven          | `v3.9.9`  | Build automation and dependency management  |
 | 🐘 PostgreSQL     | `17`      | Relational database management system       |
 | 👩‍🚀 Postman        | `11.19`   | API testing and development tool            |
+
 ***
-## Dependencies:
-| Dependency              | Category        | Description                                                                                                                          |
-|-------------------------|-----------------|--------------------------------------------------------------------------------------------------------------------------------------|
-| 🛠️ Spring Boot DevTools | Developer Tools | Provides fast application restarts, LiveReload, and configurations for enhanced development experience                               |
-| 🌐 Spring Web           | Web             | Build web, including RESTful, applications using Spring MVC. Uses Apache Tomcat as the default embedded container                    |
-| 💾 Spring Data JPA      | SQL             | Persist data in SQL stores with Java Persistence API using Spring Data and Hibernate                                                 |
-| 🐘 PostgreSQL Driver    | SQL             | A JDBC and R2DBC driver that allows Java programs to connect to a PostgreSQL database using standard, database independent Java code |
-| 🗝️ dotenv-java          | Configuration   | Loads environment variables from a `.env` file into the application, aiding in secure configuration management                       |
-| 🦅 Flyway Migration     | SQL             | Version control for your database so you can migrate from any version (incl. an empty database) to the latest version of the schema  |
-| 🛢️ H2 Database Engine   | SQL             | Provides an in-memory and lightweight relational database for development and testing purposes                                       |
+
+## Backend Dependencies:  
+| Dependency              | Category        | Description                                                                                                                                  |
+|-------------------------|-----------------|----------------------------------------------------------------------------------------------------------------------------------------------|
+| 🛠️ Spring Boot DevTools | Developer Tools | Provides fast application restarts, LiveReload, and configurations for enhanced development experience                                       |
+| 🌐 Spring Web           | Web             | Build web, including RESTful, applications using Spring MVC. Uses Apache Tomcat as the default embedded container                            |
+| 💾 Spring Data JPA      | SQL             | Persist data in SQL stores with Java Persistence API using Spring Data and Hibernate                                                         |
+| 🐘 PostgreSQL Driver    | SQL             | A JDBC and R2DBC driver that allows Java programs to connect to a PostgreSQL database using standard, database-independent Java code         |
+| 🗝️ dotenv-java          | Configuration   | Loads environment variables from a `.env` file into the application, aiding in secure configuration management                               |
+| 🦅 Flyway Migration     | SQL             | Provides version control for your database, allowing seamless migrations from any version, including an empty database, to the latest schema |
+| 🛢️ H2 Database Engine   | SQL             | Provides an in-memory and lightweight relational database for development and testing purposes                                               |
+
 ***
+
 ### Part 2 - [Frontend Development with React and TypeScript](https://github.com/souzafcharles/Java-Spring-React-Fullstack/tree/main/Frontend/digitalMenu):
 <p align="justify">
 This section focuses on developing the application's frontend using the <code>React</code> library and <code>TypeScript</code>. The process includes creating <code>React</code> components and leveraging <code>React Hooks</code> to implement the application's functionalities. The guide also explores the use of <code>TypeScript</code> to enhance code maintainability. Furthermore, it details the connection of the frontend to the backend (developed in Part 1) using <code>Axios</code> for <code>HTTP</code> requests and <code>React Query</code> for fetching, caching, synchronising, and updating server state within the application.
@@ -52,21 +56,27 @@ This section focuses on developing the application's frontend using the <code>Re
 | 📦 Node.js            | `18.x`     | JavaScript runtime environment                  |
 
 ***  
+
 ## Frontend Dependencies:  
-| Dependency              | Category         | Description                                              |
-|-------------------------|------------------|----------------------------------------------------------|
-| ⚛️ React                | Core             | Library for building user interfaces                     |
-| ⚛️ React DOM            | Core             | Renders React components in the browser                  |
-| 📜 TypeScript           | Core             | Enables type-checking and development with TypeScript    |
-| ⚙️ Vite Plugin React    | Build Tools      | Plugin to support React in Vite projects                 |
-| ✅ ESLint               | Development      | Linter tool to ensure code quality                       |
-| 🎯 TypeScript ESLint    | Development      | Integrates TypeScript with ESLint                        |
-| 🔍 @types/react         | Type Definitions | Provides TypeScript definitions for React                |
-| 🔍 @types/react-dom     | Type Definitions | Provides TypeScript definitions for React DOM            |
-| 🌍 Globals              | Development      | Provides global variables and functions for ESLint rules |
-| 🔄 React Hooks ESLint   | Development      | Ensures proper usage of React Hooks                      |
-| 🔧 React Refresh ESLint | Development      | Provides linting for Vite’s fast-refresh mechanism       |
+| Dependency               | Category         | Description                                              |
+|--------------------------|------------------|----------------------------------------------------------|
+| ⚛️ React                 | Core             | Library for building user interfaces                     |
+| ⚛️ React DOM             | Core             | Renders React components in the browser                  |
+| 📜 TypeScript            | Core             | Enables type-checking and development with TypeScript    |
+| ⚙️ Vite Plugin React     | Build Tools      | Plugin to support React in Vite projects                 |
+| ✅ ESLint                | Development      | Linter tool to ensure code quality                       |
+| 🎯 TypeScript ESLint     | Development      | Integrates TypeScript with ESLint                        |
+| 🔍 @types/react          | Type Definitions | Provides TypeScript definitions for React                |
+| 🔍 @types/react-dom      | Type Definitions | Provides TypeScript definitions for React DOM            |
+| 🌍 Globals               | Development      | Provides global variables and functions for ESLint rules |
+| 🔄 React Hooks ESLint    | Development      | Ensures proper usage of React Hooks                      |
+| 🔧 React Refresh ESLint  | Development      | Provides linting for Vite’s fast-refresh mechanism       |
+| 🔄 @tanstack/react-query | API Management   | Data fetching and caching for React applications         |
+| 🔗 Axios                 | API Management   | Promise-based HTTP client for making API requests        |
+
 ***
+
 ▶️ **Tutorial Video kipperDev**: [Part 1: Backend Development with Java Spring and PostgreSQL](https://www.youtube.com/watch?v=lUVureR5GqI&ab_channel=FernandaKipper%7CDev)</br>
 ▶️ **Tutorial Video kipperDev**: [Part 2: Frontend Development with React and TypeScript](https://www.youtube.com/watch?v=WHruc3_2z68&ab_channel=FernandaKipper%7CDev)
+
 ***
