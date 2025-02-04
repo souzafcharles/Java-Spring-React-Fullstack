@@ -8,7 +8,9 @@ package com.souza.charles.digitalMenu.dto;
 
 import com.souza.charles.digitalMenu.entities.Food;
 
-public record FoodResponseDTO(Long id, String title, Double price, String image) {
+import java.io.Serializable;
+
+public record FoodResponseDTO(Long id, String title, Double price, String image) implements Serializable {
 
     public FoodResponseDTO(Food food) {
         this(food.getId(), food.getTitle(), food.getPrice(), food.getImage());
