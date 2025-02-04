@@ -275,7 +275,7 @@ INSERT INTO tb_foods (title, price, image) VALUES
 ***
 ### 5. Requesting and Responding Food Data via Spring Boot RESTful API:
 #### 5.1. Setting Up the RESTful API for HTTP Methods (Idempotent):
-- Endpoint: GET `/foods`: Retrieves a list of all Food.
+- **Endpoint**: GET `/foods`: Retrieves a list of all Food.
 #### 5.2. Example GET Request:
 ````json
 http://localhost:8080/foods
@@ -376,7 +376,7 @@ http://localhost:8080/foods
 ]
 ````
 #### 5.4. Setting Up the RESTful API for HTTP Methods (Non-Idempotent):
-- Endpoint: POST `/foods`: Creates a new Food.
+- **Endpoint**: POST `/foods`: Creates a new Food.
 #### 5.5. Example POST Request:
 ````json
 http://localhost:8080/foods
@@ -399,7 +399,7 @@ Body -> raw -> JSON
 }
 ````
 #### 5.7. Setting Up the RESTful API for HTTP Methods (Idempotent):
-- Endpoint: GET `/foods/{id}`: Retrieves a specific Food item by its ID.
+- **Endpoint**: GET `/foods/{id}`: Retrieves a specific Food item by its ID.
 
 #### 5.8. Example GET Request:
 ````json
@@ -415,7 +415,7 @@ http://localhost:8080/foods/10
 }
 ````
 #### 5.10. Setting Up the RESTful API for HTTP Methods (Idempotent):
-- Endpoint: PUT `/foods/{id}`: Updates a specific Food item by its ID.
+- **Endpoint**: PUT `/foods/{id}`: Updates a specific Food item by its ID.
 #### 5.11. Example PUT Request:
 ````json
 http://localhost:8080/foods/16
@@ -438,7 +438,7 @@ Body -> raw -> JSON
 }
 ````
 #### 5.13. Setting Up the RESTful API for HTTP Methods (Idempotent):
-- Endpoint: DELETE `/foods/{id}`: Deletes a specific Food item by its ID.
+- **Endpoint**: DELETE `/foods/{id}`: Deletes a specific Food item by its ID.
 #### 5.14. Example DELETE Request:
 ````json
 http://localhost:8080/foods/1
