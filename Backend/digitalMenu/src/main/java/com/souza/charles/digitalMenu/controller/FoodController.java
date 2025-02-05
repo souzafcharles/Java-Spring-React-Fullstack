@@ -28,7 +28,7 @@ public class FoodController implements Serializable {
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     @PostMapping
     public ResponseEntity<FoodResponseDTO> insert(@RequestBody FoodRequestDTO data) {
-        FoodResponseDTO createdFood = foodService.insert(data);
+        FoodResponseDTO create = foodService.insert(data);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdFood);
     }
 
