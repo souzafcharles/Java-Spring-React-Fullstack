@@ -273,12 +273,14 @@ INSERT INTO tb_foods (title, price, image) VALUES
 ('Sushi', 59.99, 'https://raw.githubusercontent.com/souzafcharles/Java-Spring-React-Fullstack/refs/heads/main/Backend/digitalMenu/src/main/resources/static/img/sushi.webp');
 ````
 ***
-### 5. Requesting and Responding Food Data via Spring Boot RESTful API:
-#### 5.1. Setting Up the RESTful API for HTTP Methods (Idempotent):
-- **Endpoint**: GET `/foods`: Retrieves a list of all Food.
+### 5. Success Case: Requesting and Responding Food Data via Spring Boot RESTful API:
+#### 5.1. `findAll` - Setting Up the RESTful API for HTTP Methods (Idempotent):
+- **Endpoint:** GET `/foods`;
+- **Purpose:**Retrieves a list of all Food.
 #### 5.2. Example GET Request:
-````json
-http://localhost:8080/foods
+- **Scenario:** Successfully retrieves a list of all foods:
+````markdown
+GET http://localhost:8080/foods
 ````
 #### 5.3. Example Response:
 ````json
@@ -375,11 +377,13 @@ http://localhost:8080/foods
   }
 ]
 ````
-#### 5.4. Setting Up the RESTful API for HTTP Methods (Non-Idempotent):
-- **Endpoint**: POST `/foods`: Creates a new Food.
+#### 5.4. `insert` - Setting Up the RESTful API for HTTP Methods (Non-Idempotent):
+- **Endpoint:** POST `/foods`;
+- **Purpose:** Creates a new Food.
 #### 5.5. Example POST Request:
-````json
-http://localhost:8080/foods
+- **Scenario:** Successfully creates a new Food:
+````markdown
+POST http://localhost:8080/foods
 Body -> raw -> JSON
 ````
 ````json
@@ -398,12 +402,13 @@ Body -> raw -> JSON
   "image": "https://raw.githubusercontent.com/souzafcharles/Java-Spring-React-Fullstack/refs/heads/main/Backend/digitalMenu/src/main/resources/static/img/tapioca.webp"
 }
 ````
-#### 5.7. Setting Up the RESTful API for HTTP Methods (Idempotent):
-- **Endpoint**: GET `/foods/{id}`: Retrieves a specific Food item by its ID.
-
+#### 5.7. `findById` - Setting Up the RESTful API for HTTP Methods (Idempotent):
+- **Endpoint:** `GET /foods/{id}`;
+- **Purpose:** Retrieves a specific Food item by its ID.
 #### 5.8. Example GET Request:
-````json
-http://localhost:8080/foods/10
+- **Scenario:** Successfully retrieves the requested user by ID:
+````markdown
+GET http://localhost:8080/foods/10
 ````        
 #### 5.9. Example Response:
 ````json
@@ -414,11 +419,13 @@ http://localhost:8080/foods/10
   "image": "https://raw.githubusercontent.com/souzafcharles/Java-Spring-React-Fullstack/refs/heads/main/Backend/digitalMenu/src/main/resources/static/img/pizza.jpg"
 }
 ````
-#### 5.10. Setting Up the RESTful API for HTTP Methods (Idempotent):
-- **Endpoint**: PUT `/foods/{id}`: Updates a specific Food item by its ID.
-#### 5.11. Example PUT Request:
-````json
-http://localhost:8080/foods/16
+#### 5.10. `update` - Setting Up the RESTful API for HTTP Methods (Idempotent):
+- **Endpoint:** PUT `/foods/{id}`;
+- **Purpose:** Updates a specific Food item by its ID.
+#### 19.2. Example PUT Request:
+- **Scenario:** Successfully updates the requested Food by ID:
+````markdown
+PUT http://localhost:8080/users/16
 Body -> raw -> JSON
 ````
 ````json
@@ -437,14 +444,16 @@ Body -> raw -> JSON
   "image": "https://raw.githubusercontent.com/souzafcharles/Java-Spring-React-Fullstack/refs/heads/main/Backend/digitalMenu/src/main/resources/static/img/temaki.jpg"
 }
 ````
-#### 5.13. Setting Up the RESTful API for HTTP Methods (Idempotent):
-- **Endpoint**: DELETE `/foods/{id}`: Deletes a specific Food item by its ID.
-#### 5.14. Example DELETE Request:
-````json
-http://localhost:8080/foods/1
+#### 5.13. `delete` - Setting Up the RESTful API for HTTP Methods (Idempotent):
+- **Endpoint:** `DELETE /foods/{id}`;
+- **Purpose:** Deletes a specific Food item by its ID.
+#### 15.2. Example DELETE Request:
+- **Scenario:** Successfully deletes the requested Food by ID:
+````markdown
+DELETE http://localhost:8080/foods/1
 ````
 #### 5.15. Example Response:
-````json
+````markdown
 HTTP Status 204 - No Content
 ````
 #### 5.16. Idempotent and Non-Idempotent Methods:
@@ -507,14 +516,14 @@ public FoodResponseDTO findById(Long id) {
     return new FoodResponseDTO(result);
 }
 ````
-#### 6.5. Requesting and Responding Food Data via Spring Boot RESTful API:
+#### 6.5. Error Case: Handling Resource Not Found via Spring Boot RESTful API (`findById`):
 #### 6.5.1. Setting Up the RESTful API for HTTP Methods (Idempotent):
 - **Endpoint**: GET `/foods/{id}`;
 - **Purpose**: Retrieves a specific Food item by its ID.
 #### 6.5.2. Example GET Request:
 - **Scenario**: The requested ID `17` does not exist, triggering the custom error response with a `404 Not Found` status code:
-````json
-http://localhost:8080/foods/17
+````markdown
+GET http://localhost:8080/foods/17
 ````
 #### 6.5.3. Example Error Response:
 - Upon catching a `ResourceNotFoundException`, the method returns a structured JSON response in the following format:
@@ -534,7 +543,7 @@ http://localhost:8080/foods/17
 - `message`: Detailed information, including the resource identifier;
 - `path`: The URI path of the failed request.
 ***
-### 7. Exception Handling - DELETE:
+### 7. Exception Handling for `delete` Method:
 This section covers the implementation of exception handling for the `delete` operation in the `FoodService` class, introducing custom exceptions and centralized error handling mechanisms.
 #### 7.1. **NEW CLASS:** `services.exceptions.DatabaseException`:
 - Custom exception created to handle database-related errors such as data integrity violations;
@@ -578,13 +587,13 @@ public void delete(Long id) {
     }
 }
 ````
-#### 7.4. Requesting and Responding Food Data via Spring Boot RESTful API:
+#### 7.4. Error Case: Handling Resource Not Found via Spring Boot RESTful API (`delete`):
 #### 7.4.1. Setting Up the RESTful API for HTTP Methods (Idempotent):
 - **Endpoint**: DELETE `/foods/{id}`;
 - **Purpose**: Deletes a specific Food item by its ID.
 #### 7.4.2. Example DELETE Request (Resource Not Found):
 - **Scenario**: The requested ID `17` does not exist, triggering the custom error response with a `404 Not Found` status code:
-````json
+````markdown
 DELETE http://localhost:8080/foods/17
 ````
 #### 7.4.3. Example Error Response:
@@ -597,9 +606,9 @@ DELETE http://localhost:8080/foods/17
     "path": "/foods/17"
 }
 ````
-#### 7.4.4. Example DELETE Request (Data Integrity Violation):
+#### 7.4.4. Example DELETE Request (`Data Integrity Violation`):
 - **Scenario**: The requested ID `1` exists, but due to relationships with another entity, a `Database Constraint Violation` occurs, triggering the custom error response with a `400 Bad Request` status code:
-````json
+````markdown
 DELETE http://localhost:8080/foods/1
 ````
 #### 7.4.5. Example Error Response:
@@ -619,7 +628,7 @@ DELETE http://localhost:8080/foods/1
 - `message`: Detailed information, including the resource identifier;
 - `path`: The URI path of the failed request.
 ***
-### 8. Exception Handling - UPDATE:
+### 8. Exception Handling for `update` Method:
 This section covers the implementation of exception handling for the `update` operation in the `FoodService` class, introducing custom exceptions and centralized error handling mechanisms.
 #### 8.1. Update Method update in FoodService:
 - Modify the `update` method to throw the custom `ResourceNotFoundException`:
@@ -642,13 +651,13 @@ This section covers the implementation of exception handling for the `update` op
         entity.setImage(data.image());
     }
 ````
-#### 8.2. Requesting and Responding Food Data via Spring Boot RESTful API:
+#### 8.2. Error Case: Handling Resource Not Found via Spring Boot RESTful API (`update`):
 #### 8.2.1. Setting Up the RESTful API for HTTP Methods (Idempotent):
 - **Endpoint**: PUT `/foods/{id}`;
 - **Purpose**: Updates a specific Food item by its ID.
 #### 8.2.2. Example PUT Request (Resource Not Found):
 - **Scenario**: The requested ID `17` does not exist, triggering the custom error response with a `404 Not Found` status code:
-````json
+````markdown
 PUT http://localhost:8080/foods/17
 Body -> raw -> JSON
 ````
@@ -753,13 +762,13 @@ public List<FoodResponseDTO> findAll() {
   }
 }
 ````
-#### 9.8. Requesting and Responding Food Data via Spring Boot RESTful API:
+#### 9.8. Error Case: Handling Resource Not Found via Spring Boot RESTful API (`insert`):
 #### 9.8.1. Setting Up the RESTful API for HTTP Methods (Idempotent):
 - **Endpoint**: POST `/foods`;
 - **Purpose**: Inserts a new Food item into the database.
 #### 9.8.2. Example POST Request (Invalid Data):
 -**Scenario**: The provided data is invalid, triggering the custom error response with a `400 Bad Request` status code:
-````json
+````markdown
 POST http://localhost:8080/foods
 Body -> raw -> JSON
 ````
@@ -782,7 +791,7 @@ Body -> raw -> JSON
 ````
 #### 9.8.4. Example POST Request (Invalid HTTP Message):
 - **Scenario**: The HTTP message format is invalid, triggering the custom error response with a `400 Bad Request` status code:
-````json
+````markdown
 POST http://localhost:8080/foods
 Body -> raw -> Text
 Invalid JSON format
@@ -797,15 +806,16 @@ Invalid JSON format
   "path": "/foods"
 }
 ````
-#### 9.8.6. Setting Up the RESTful API for HTTP Methods (Idempotent):
+#### 9.9. Error Case: Handling Resource Not Found via Spring Boot RESTful API (`findAll`):
+#### 9.9.1. Setting Up the RESTful API for HTTP Methods (Idempotent):
 -**Endpoint** GET `/foods`;
 -**Purpose**: Retrieves all Food items from the database.
-#### 9.8.7. Example GET Request (Empty Table):
+#### 9.9.2. Example GET Request (Empty Table):
 -**Scenario**: The database table is empty, triggering the custom error response with a `204 No Content` status code:
-````json
+````markdown
 GET http://localhost:8080/foods
 ````
-#### 9.8.8. Example Error Response:
+#### 9.9.3. Example Error Response:
 ````json
 {
   "timestamp": "2025-01-31T19:18:17Z",
@@ -815,12 +825,12 @@ GET http://localhost:8080/foods
   "path": "/foods"
 }
 ````
-#### 9.8.9. Example GET Request (SQL Grammar Error):
+#### 9.9.4. Example GET Request (SQL Grammar Error):
 -**Scenario**: An SQL grammar error occurs, triggering the custom error response with a `500 Internal Server Error` status code:
-````json
+````markdown
 GET http://localhost:8080/foods
 ````
-#### 9.8.10. Example Error Response:
+#### 9.9.5. Example Error Response:
 ````json
 {
   "timestamp": "2025-01-31T19:18:17Z",
@@ -837,7 +847,6 @@ GET http://localhost:8080/foods
 - `message`: Detailed information, including the resource identifier;
 - `path`: The URI path of the failed request.
 ***
-
 ### 10. Seeding the Database with Additional Food Items in H2 and PostgreSQL:
 ````sql
 INSERT INTO tb_foods (title, price, image) VALUES
