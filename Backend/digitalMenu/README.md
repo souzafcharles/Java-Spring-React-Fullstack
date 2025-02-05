@@ -492,7 +492,7 @@ public ResponseEntity<StandardError> handleResourceNotFound(ResourceNotFoundExce
 - `@ExceptionHandler`(ResourceNotFoundException.class): Maps the method to handle exceptions of type `ResourceNotFoundException`;
 - `ResourceNotFoundException` e: The exception object containing the error details;
 - `HttpServletRequest` request: Captures information about the HTTP request, such as the request URI.
-#### 6.3.3. Response Construction:
+#### 6.3.4. Response Construction:
 - **Timestamp**: `Instant.now()` ensures the current time is recorded when the exception is handled;
 - **Status Code**: `HttpStatus.NOT_FOUND.value()` returns the HTTP status code 404;
 - **Error Message**: The variable `error` provides a concise description for the error;
