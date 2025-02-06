@@ -81,7 +81,7 @@ digitalMenu-backend/
     - **PostgreSQL Driver:** For connecting to PostgreSQL databases;
     - **Liquibase Core:** For database schema migration management;
     - **Spring Boot DevTools:** For enhancing developer experience with automatic restarts and live reloads;
-    - **dotenv-java:** For environment variable management;
+    - **dotenv-java:** For environment variable management.
 
 ***
 
