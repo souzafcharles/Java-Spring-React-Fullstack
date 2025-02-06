@@ -21,9 +21,11 @@ This section details the construction of the application's backend using the <co
 |-------------------|-----------|---------------------------------------------|
 | 📐 IntelliJ IDEA  | `2024.3`  | Integrated Development Environment (IDE)    |
 | ☕ Java           | `21`      | Backend programming language                |
-| 🍃 Spring Boot    | `3.4.2`   | Framework for creating Spring applications  |
+| 🌱 Spring Boot    | `3.4.2`   | Framework for creating Spring applications  |
 | 🐦 Maven          | `3.9.9`   | Build automation and dependency management  |
 | 🐘 PostgreSQL     | `17`      | Relational database management system       |
+| 🗃️ H2 Database    | `2.3.232` | In-memory relational database for testing   |
+| 🛢️ Liquibase      | `4.22.0`  | Database migration management tool          |
 | 👩‍🚀 Postman        | `11.19`   | API testing and development tool            |
 
 ***
@@ -34,7 +36,7 @@ This section details the construction of the application's backend using the <co
 | 🛠️ Spring Boot DevTools | Developer Tools | Provides fast application restarts, LiveReload, and configurations for enhanced development experience                                       |
 | 🌐 Spring Web           | Web             | Build web, including RESTful, applications using Spring MVC. Uses Apache Tomcat as the default embedded container                            |
 | 💾 Spring Data JPA      | SQL             | Persist data in SQL stores with Java Persistence API using Spring Data and Hibernate                                                         |
-| 🗃️ H2 Database Engine   | SQL             | Provides an in-memory and lightweight relational database for development and testing purposes                                               |
+| 🗃️ H2 Database Engine   | SQL             | Provides a fast in-memory database that supports JDBC API and R2DBC access, with a small (2mb) footprint                                     |
 | 🐘 PostgreSQL Driver    | SQL             | A JDBC and R2DBC driver that allows Java programs to connect to a PostgreSQL database using standard, database-independent Java code         |
 | 🛢️ Liquibase Core       | SQL             | Manages database schema migrations, providing version control and seamless updates to the database schema                                    |
 | 🗝️ dotenv-java          | Configuration   | Loads environment variables from a `.env` file into the application, aiding in secure configuration management                               |
