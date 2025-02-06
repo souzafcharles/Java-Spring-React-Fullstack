@@ -13,7 +13,7 @@ This guide provides a structured approach to developing a full-stack application
 
 ### Part 1 - [Backend Development with Java Spring and PostgreSQL](https://github.com/souzafcharles/Java-Spring-React-Fullstack/tree/main/Backend/digitalMenu):
 <p align="justify">
-This section details the construction of the application's backend using the <code>Java Spring</code> framework. The initial step involves creating a <code>Spring Boot</code> project and configuring the <code>PostgreSQL</code> database. Subsequently, the guide covers the creation of data models and <code>RESTful</code> controllers to manage <code>CRUD</code> operations within the application. The utilisation of essential libraries, such as <code>Spring Data JPA</code>, will be explored to streamline data access and manipulation.
+This section details the construction of the application's backend using the <code>Java Spring</code> framework.  It begins with the creation of a <code>Spring Boot</code> project, configuring both <code>H2</code> for testing and <code>PostgreSQL</code> for development, and implementing database migrations using <code>Liquibase</code>. The guide then covers the creation of data models and <code>RESTful</code> controllers to manage <code>CRUD</code> operations within the application. The utilisation of essential libraries, such as <code>Spring Data JPA</code>, will be explored to streamline data access and manipulation.  Environment-specific configurations and the use of environment variables are also covered.
 </p>
 
 ## Backend Project Stack:
