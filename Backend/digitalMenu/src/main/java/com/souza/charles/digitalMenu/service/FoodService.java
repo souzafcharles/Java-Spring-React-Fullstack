@@ -3,7 +3,7 @@ package com.souza.charles.digitalMenu.service;
  Tutorial title: Building a Full-Stack Application with Java Spring and React
  Instructor: Fernanda Kipper - kipperDev
  Project adapted by: Charles Fernandes de Souza
- Date: February 01, 2025
+ Date: February 06, 2025
  */
 import com.souza.charles.digitalMenu.dto.FoodRequestDTO;
 import com.souza.charles.digitalMenu.dto.FoodResponseDTO;
@@ -13,10 +13,7 @@ import com.souza.charles.digitalMenu.service.exceptions.*;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.dao.InvalidDataAccessResourceUsageException;
-import org.springframework.http.converter.HttpMessageNotReadableException;
-import org.springframework.jdbc.BadSqlGrammarException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -36,8 +33,6 @@ public class FoodService {
             return new FoodResponseDTO(create);
         } catch (DataIntegrityViolationException e) {
             throw new InvalidDataException();
-        } catch (HttpMessageNotReadableException e) {
-            throw new InvalidHttpMessageException(e.getMessage());
         }
     }
 
@@ -71,8 +66,6 @@ public class FoodService {
             return new FoodResponseDTO(updated);
         } catch (EntityNotFoundException e) {
             throw new ResourceNotFoundException(id);
-        } catch (BadSqlGrammarException e) {
-            throw new SQLGrammarException(e.getMessage());
         }
     }
 
@@ -85,9 +78,8 @@ public class FoodService {
     @Transactional
     public void delete(Long id) {
         try {
+            foodRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException(id));
             foodRepository.deleteById(id);
-        } catch (EmptyResultDataAccessException e) {
-            throw new ResourceNotFoundException(id);
         } catch (DataIntegrityViolationException e) {
             throw new DatabaseException(e.getMessage());
         } catch (InvalidDataAccessResourceUsageException e) {

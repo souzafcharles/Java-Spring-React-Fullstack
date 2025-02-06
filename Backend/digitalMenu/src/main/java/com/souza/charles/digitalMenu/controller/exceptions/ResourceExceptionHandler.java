@@ -3,7 +3,7 @@ package com.souza.charles.digitalMenu.controller.exceptions;
  Tutorial title: Building a Full-Stack Application with Java Spring and React
  Instructor: Fernanda Kipper - kipperDev
  Project adapted by: Charles Fernandes de Souza
- Date: January 31, 2025
+ Date: February 06, 2025
  */
 
 import com.souza.charles.digitalMenu.service.exceptions.*;
@@ -34,6 +34,14 @@ public class ResourceExceptionHandler {
         return ResponseEntity.status(status).body(err);
     }
 
+    @ExceptionHandler(EmptyTableException.class)
+    public ResponseEntity<StandardError> handleEmptyTableException(EmptyTableException e, HttpServletRequest request) {
+        String error = "No data found in the requested table. Please verify the table name or check if it contains records.";
+        HttpStatus status = HttpStatus.NOT_FOUND;
+        StandardError err = new StandardError(Instant.now(), status.value(), error, e.getMessage(), request.getRequestURI());
+        return ResponseEntity.status(status).body(err);
+    }
+
     @ExceptionHandler(InvalidDataException.class)
     public ResponseEntity<StandardError> handleBadRequestException(InvalidDataException e, HttpServletRequest request) {
         String error = "Invalid data provided. Please check the input and try again.";
@@ -42,27 +50,4 @@ public class ResourceExceptionHandler {
         return ResponseEntity.status(status).body(err);
     }
 
-    @ExceptionHandler(EmptyTableException.class)
-    public ResponseEntity<StandardError> handleEmptyTableException(EmptyTableException e, HttpServletRequest request) {
-        String error = "The requested table is empty or does not exist.";
-        HttpStatus status = HttpStatus.NO_CONTENT;
-        StandardError err = new StandardError(Instant.now(), status.value(), error, e.getMessage(), request.getRequestURI());
-        return ResponseEntity.status(status).body(err);
-    }
-
-    @ExceptionHandler(SQLGrammarException.class)
-    public ResponseEntity<StandardError> handleSQLGrammarException(SQLGrammarException e, HttpServletRequest request) {
-        String error = "SQL grammar error. Please check the database query syntax.";
-        HttpStatus status = HttpStatus.INTERNAL_SERVER_ERROR;
-        StandardError err = new StandardError(Instant.now(), status.value(), error, e.getMessage(), request.getRequestURI());
-        return ResponseEntity.status(status).body(err);
-    }
-
-    @ExceptionHandler(InvalidHttpMessageException.class)
-    public ResponseEntity<StandardError> handleHttpMessageNotReadable(InvalidHttpMessageException e, HttpServletRequest request) {
-        String error = "Invalid input format. Please verify the request data.";
-        HttpStatus status = HttpStatus.BAD_REQUEST;
-        StandardError err = new StandardError(Instant.now(), status.value(), error, e.getMessage(), request.getRequestURI());
-        return ResponseEntity.status(status).body(err);
-    }
 }

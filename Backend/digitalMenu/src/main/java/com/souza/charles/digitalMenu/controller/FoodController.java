@@ -3,7 +3,7 @@ package com.souza.charles.digitalMenu.controller;
  Tutorial title: Building a Full-Stack Application with Java Spring and React
  Instructor: Fernanda Kipper - kipperDev
  Project adapted by: Charles Fernandes de Souza
- Date: January 31, 2025
+ Date: February 06, 2025
  */
 
 import com.souza.charles.digitalMenu.dto.FoodRequestDTO;
@@ -29,7 +29,7 @@ public class FoodController implements Serializable {
     @PostMapping
     public ResponseEntity<FoodResponseDTO> insert(@RequestBody FoodRequestDTO data) {
         FoodResponseDTO create = foodService.insert(data);
-        return ResponseEntity.status(HttpStatus.CREATED).body(createdFood);
+        return ResponseEntity.status(HttpStatus.CREATED).body(create);
     }
 
     @CrossOrigin(origins = "*", allowedHeaders = "*")
@@ -60,6 +60,6 @@ public class FoodController implements Serializable {
     @DeleteMapping(value = "/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id) {
         foodService.delete(id);
-        return ResponseEntity.noContent().build();
+        return ResponseEntity.status(HttpStatus.ACCEPTED).build();
     }
 }
