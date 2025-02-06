@@ -19,10 +19,10 @@ This section details the construction of the application's backend using the <co
 ## Backend Project Stack:
 | Technology        | Version   | Description                                 |
 |-------------------|-----------|---------------------------------------------|
-| ✒️ IntelliJ IDEA  | `2024.3`  | Integrated Development Environment (IDE)    |
+| 📐 IntelliJ IDEA  | `2024.3`  | Integrated Development Environment (IDE)    |
 | ☕ Java           | `21`      | Backend programming language                |
-| 🍃 Spring Boot    | `v3.4.2`  | Framework for creating Spring applications  |
-| 🐦 Maven          | `v3.9.9`  | Build automation and dependency management  |
+| 🍃 Spring Boot    | `3.4.2`   | Framework for creating Spring applications  |
+| 🐦 Maven          | `3.9.9`   | Build automation and dependency management  |
 | 🐘 PostgreSQL     | `17`      | Relational database management system       |
 | 👩‍🚀 Postman        | `11.19`   | API testing and development tool            |
 
@@ -34,10 +34,10 @@ This section details the construction of the application's backend using the <co
 | 🛠️ Spring Boot DevTools | Developer Tools | Provides fast application restarts, LiveReload, and configurations for enhanced development experience                                       |
 | 🌐 Spring Web           | Web             | Build web, including RESTful, applications using Spring MVC. Uses Apache Tomcat as the default embedded container                            |
 | 💾 Spring Data JPA      | SQL             | Persist data in SQL stores with Java Persistence API using Spring Data and Hibernate                                                         |
+| 🗃️ H2 Database Engine   | SQL             | Provides an in-memory and lightweight relational database for development and testing purposes                                               |
 | 🐘 PostgreSQL Driver    | SQL             | A JDBC and R2DBC driver that allows Java programs to connect to a PostgreSQL database using standard, database-independent Java code         |
+| 🛢️ Liquibase Core       | SQL             | Manages database schema migrations, providing version control and seamless updates to the database schema                                    |
 | 🗝️ dotenv-java          | Configuration   | Loads environment variables from a `.env` file into the application, aiding in secure configuration management                               |
-| 🦅 Flyway Migration     | SQL             | Provides version control for your database, allowing seamless migrations from any version, including an empty database, to the latest schema |
-| 🛢️ H2 Database Engine   | SQL             | Provides an in-memory and lightweight relational database for development and testing purposes                                               |
 
 ***
 
@@ -69,7 +69,7 @@ This section focuses on developing the application's frontend using the <code>Re
 | 🔍 @types/react          | Type Definitions | Provides TypeScript definitions for React                |
 | 🔍 @types/react-dom      | Type Definitions | Provides TypeScript definitions for React DOM            |
 | 🌍 Globals               | Development      | Provides global variables and functions for ESLint rules |
-| 📐 React Hooks ESLint    | Development      | Ensures proper usage of React Hooks                      |
+| ✒️ React Hooks ESLint    | Development      | Ensures proper usage of React Hooks                      |
 | 🔧 React Refresh ESLint  | Development      | Provides linting for Vite’s fast-refresh mechanism       |
 | 🔄 @tanstack/react-query | API Management   | Data fetching and caching for React applications         |
 | 🔗 Axios                 | API Management   | Promise-based HTTP client for making API requests        |
@@ -83,4 +83,3 @@ This section focuses on developing the application's frontend using the <code>Re
 ***
 ## Home Screen with Displayed Items: 
 ![Home Screen Updated](https://github.com/souzafcharles/Java-Spring-React-Fullstack/blob/main/Frontend/digitalMenu/public/home-inserted.png)
-

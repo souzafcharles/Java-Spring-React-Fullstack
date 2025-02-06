@@ -40,12 +40,14 @@ digitalMenu-backend/
 │   │   │   │   ├── FoodService.java
 │   │   │   ├── DigitalMenuApplication.java
 │   ├── resources/
-│   │   ├── db/migrations/
+│   │   ├── db/changelog/
+│   │   │   ├── db.changelog-master.yaml
 │   │   ├── static.img/
 │   │   ├── templates/
 │   │   ├── application.properties
 │   │   ├── application-dev.properties
 │   │   ├── application-test.properties
+│   │   ├── changelog-master.yaml
 ├── test/
 ├── target/
 ├── .env
@@ -70,23 +72,23 @@ digitalMenu-backend/
 - **Spring Initializr Configuration:**
     - **Build Tool:** Maven;
     - **Programming Language:** Java 21;
-    - **Packaging Type:** JAR;
+    - **Packaging Type:** JAR.
 
 - **Required Dependencies:**
     - **Spring Web:** For building RESTful APIs and handling HTTP requests;
     - **Spring Data JPA:** For database access and ORM (Object Relational Mapping);
+    - **H2 Database:** For in-memory database support during development and testing;
     - **PostgreSQL Driver:** For connecting to PostgreSQL databases;
+    - **Liquibase Core:** For database schema migration management;
     - **Spring Boot DevTools:** For enhancing developer experience with automatic restarts and live reloads;
     - **dotenv-java:** For environment variable management;
-    - **H2 Database:** For in-memory database support during development and testing;
-    - **Flyway Core:** For database version control and migrations.
 
 ***
 
-### 2. Configuration of Profiles and Environment:
+### 2. Configuration of Profiles, Environment and Database Migrations:
 
-- This section covers the setup and configuration of application profiles, environment-specific properties, and
-  environment variable management.
+- This section covers the setup and configuration of application profiles, environment-specific properties, environment
+  variable management, and database migrations.
 
 #### 2.1. Configuration of the `application.properties` File:
 
@@ -101,7 +103,8 @@ spring.jpa.open-in-view=true
 
 #### 2.2. Configuration of the `application-test.properties` File:
 
-- This file contains specific configurations for the `test` environment, utilizing the in-memory `H2 Database Engine`:
+- This file contains specific configurations for the `test` environment, utilising the in-memory `H2 Database Engine`
+  and configuring `Liquibase` for database migrations:
 
 ```properties
 # H2 Connection
@@ -114,11 +117,18 @@ spring.h2.console.path=/h2-console
 # Show SQL
 spring.jpa.show-sql=true
 spring.jpa.properties.hibernate.format_sql=true
+# Liquibase Configuration
+spring.liquibase.enabled=true
+spring.liquibase.change-log=classpath:/db/changelog/db.changelog-master.yaml
+# Database Dialect Configuration
+spring.jpa.database-platform=org.hibernate.dialect.H2Dialect
+spring.jpa.hibernate.ddl-auto=none
 ```
 
 #### 2.3. Configuration of the `application-dev.properties` File:
 
-- This file contains specific configurations for the `development` environment, utilizing the `PostgreSQL` database:
+- This file contains specific configurations for the development environment, utilising the `PostgreSQL` database and
+  configuring `Liquibase` for database migrations:
 
 ```properties
 # PostgreSQL Connection
@@ -133,6 +143,9 @@ spring.jpa.hibernate.ddl-auto=none
 # Show SQL
 spring.jpa.show-sql=true
 spring.jpa.properties.hibernate.format_sql=true
+# Liquibase Configuration
+spring.liquibase.enabled=true
+spring.liquibase.change-log=classpath:/db/changelog/db.changelog-master.yaml
 ```
 
 #### 2.4. Creation of the `.env` File:
@@ -151,6 +164,7 @@ DATABASE_PASSWORD=your_database_password
 - To enable environment variable loading, add the following `Maven` dependency to the `pom.xml` file:
 
 ```xml
+
 <dependency>
     <groupId>io.github.cdimascio</groupId>
     <artifactId>dotenv-java</artifactId>
@@ -192,6 +206,44 @@ public static void main(String[] args) {
 
 ```gitignore
 .env
+```
+
+#### 2.8. Database Migrations:
+
+- **Creation of the Main Changelog:**
+    - Inside the folder `src/main/resources/db/changelog`, create the file `db.changelog-master.yaml`. This file serves
+      as the main entry point for database migrations.
+
+```yaml
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: Charles
+      changes:
+        - createTable:
+            tableName: tb_foods
+            columns:
+              - column:
+                  name: id
+                  type: SERIAL
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: title
+                  type: TEXT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: price
+                  type: DECIMAL(10, 2)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: image
+                  type: TEXT
+                  constraints:
+                    nullable: false
 ```
 
 ***
@@ -390,6 +442,18 @@ GET http://localhost:8080/foods
     "title": "Batata Rústica",
     "price": 24.99,
     "image": "https://raw.githubusercontent.com/souzafcharles/Java-Spring-React-Fullstack/refs/heads/main/Backend/digitalMenu/src/main/resources/static/img/rustic-fries.webp"
+  },
+  {
+    "id": 2,
+    "title": "Coxinha de Carne Seca",
+    "price": 9.99,
+     "image": "https://raw.githubusercontent.com/souzafcharles/Java-Spring-React-Fullstack/refs/heads/main/Backend/digitalMenu/src/main/resources/static/img/beef-coxinha.webp"
+  },
+  {
+    "id": 3,
+    "title": "Esfirra de Frango",
+    "price": 23.99,
+    "image": "https://raw.githubusercontent.com/souzafcharles/Java-Spring-React-Fullstack/refs/heads/main/Backend/digitalMenu/src/main/resources/static/img/chicken-esfiha.webp"
   }
 ]
 ```
@@ -1015,15 +1079,19 @@ INSERT INTO tb_foods (title, price, image) VALUES
 **Backend Requirements and Configurations:**
 
 - [X] Configure Spring Initializr with Maven, Java 21, JAR packaging, and required dependencies (Spring Web, Spring Data
-  JPA, PostgreSQL Driver, Spring Boot DevTools, dotenv-java);
+  JPA, PostgreSQL Driver, Spring Boot DevTools, dotenv-java, Liquibase Core);
 - [X] Set up `application.properties` with general configurations, including active profile and application name;
-- [X] Configure `application-test.properties` for H2 in-memory database with enabled H2 console and SQL logging;
-- [X] Configure `application-dev.properties` for PostgreSQL with environment variables for database connection;
+- [X] Configure `application-test.properties` for H2 in-memory database with enabled H2 console, SQL logging, and
+  Liquibase for database migrations;
+- [X] Configure `application-dev.properties` for PostgreSQL with environment variables for database connection and
+  Liquibase for database migrations;
 - [X] Create `.env` file for PostgreSQL credentials and add it to `.gitignore`;
 - [X] Add `dotenv-java` dependency to `pom.xml` and implement `LoadEnvironment` utility class to load environment
   variables;
 - [X] Call `LoadEnvironment.loadEnv()` in the main application class to ensure environment variables are loaded at
-  runtime.
+  runtime;
+- [X] Create `db.changelog-master.yaml` in `src/main/resources/db/changelog` for database migrations using Liquibase;
+- [X] Define initial database schema changes (e.g., creating tables) within the changelog file.
 
 **Entity, DTOs, Repository, Service and Controller Classes:**
 
