@@ -24,6 +24,5 @@ export function useFoodDataMutate(){
             queryClient.invalidateQueries(['food-data'])
         }
     })
-
     return mutate;
 }
