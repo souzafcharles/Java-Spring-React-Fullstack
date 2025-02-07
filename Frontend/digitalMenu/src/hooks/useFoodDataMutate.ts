@@ -4,6 +4,7 @@
  Project adapted by: Charles Fernandes de Souza
  Date: February 03, 2025
  */
+
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import axios, { AxiosPromise } from "axios"
 import { FoodData } from '../interface/FoodData';
