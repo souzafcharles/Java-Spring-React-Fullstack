@@ -7,6 +7,6 @@ package com.souza.charles.digitalMenu.service.exceptions;
  */
 public class DatabaseException extends RuntimeException {
     public DatabaseException(String message) {
-        super("Database operation failed due to: " + message);
+        super("Database error detected: " + message + ". Please verify database constraints and configurations.");
     }
 }
