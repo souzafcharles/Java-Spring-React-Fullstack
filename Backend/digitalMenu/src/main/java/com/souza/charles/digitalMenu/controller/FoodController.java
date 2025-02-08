@@ -28,8 +28,8 @@ public class FoodController implements Serializable {
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     @PostMapping
     public ResponseEntity<FoodResponseDTO> insert(@RequestBody FoodRequestDTO data) {
-        FoodResponseDTO create = foodService.insert(data);
-        return ResponseEntity.status(HttpStatus.CREATED).body(create);
+        FoodResponseDTO dto = foodService.insert(data);
+        return ResponseEntity.status(HttpStatus.CREATED).body(dto);
     }
 
     @CrossOrigin(origins = "*", allowedHeaders = "*")
@@ -45,21 +45,21 @@ public class FoodController implements Serializable {
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     @GetMapping(value = "/{id}")
     public ResponseEntity<FoodResponseDTO> findById(@PathVariable Long id) {
-        FoodResponseDTO result = foodService.findById(id);
-        return ResponseEntity.ok().body(result);
+        FoodResponseDTO dto = foodService.findById(id);
+        return ResponseEntity.ok().body(dto);
     }
 
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     @PutMapping(value = "/{id}")
     public ResponseEntity<FoodResponseDTO> update(@PathVariable Long id, @RequestBody FoodRequestDTO data) {
-        FoodResponseDTO updated = foodService.update(id, data);
-        return ResponseEntity.ok(updated);
+        FoodResponseDTO dto = foodService.update(id, data);
+        return ResponseEntity.status(HttpStatus.CREATED).body(dto);
     }
 
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     @DeleteMapping(value = "/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id) {
         foodService.delete(id);
-        return ResponseEntity.status(HttpStatus.ACCEPTED).build();
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 }

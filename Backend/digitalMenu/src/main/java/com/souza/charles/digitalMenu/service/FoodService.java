@@ -28,8 +28,8 @@ public class FoodService {
     @Transactional
     public FoodResponseDTO insert(FoodRequestDTO data) {
         try {
-            Food food = new Food(data);
-            Food create = foodRepository.save(food);
+            Food entity = new Food(data);
+            Food create = foodRepository.save(entity);
             return new FoodResponseDTO(create);
         } catch (DataIntegrityViolationException e) {
             throw new InvalidDataException();
@@ -39,11 +39,11 @@ public class FoodService {
     @Transactional(readOnly = true)
     public List<FoodResponseDTO> findAll() {
         try {
-            List<Food> foods = foodRepository.findAll();
-            if (foods.isEmpty()) {
+            List<Food> list = foodRepository.findAll();
+            if (list.isEmpty()) {
                 throw new EmptyTableException();
             }
-            return foods.stream()
+            return list.stream()
                     .map(FoodResponseDTO::new)
                     .toList();
         } catch (InvalidDataAccessResourceUsageException e) {
@@ -53,8 +53,8 @@ public class FoodService {
 
     @Transactional(readOnly = true)
     public FoodResponseDTO findById(Long id) {
-        Food result = foodRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException(id));
-        return new FoodResponseDTO(result);
+        Food entity = foodRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException(id));
+        return new FoodResponseDTO(entity);
     }
 
     @Transactional
