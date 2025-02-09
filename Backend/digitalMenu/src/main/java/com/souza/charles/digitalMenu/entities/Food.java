@@ -3,7 +3,7 @@ package com.souza.charles.digitalMenu.entities;
  Tutorial title: Building a Full-Stack Application with Java Spring and React
  Instructor: Fernanda Kipper - kipperDev
  Project adapted by: Charles Fernandes de Souza
- Date: January 31, 2025
+ Date: February 09, 2025
  */
 
 import com.souza.charles.digitalMenu.dto.FoodRequestDTO;
@@ -73,11 +73,11 @@ public class Food implements Serializable {
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         Food food = (Food) o;
-        return Objects.equals(id, food.id);
+        return Objects.equals(id, food.id) && Objects.equals(image, food.image);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(id);
+        return Objects.hash(id, image);
     }
 }

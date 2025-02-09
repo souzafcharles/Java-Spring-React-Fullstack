@@ -3,7 +3,7 @@ package com.souza.charles.digitalMenu.controller;
  Tutorial title: Building a Full-Stack Application with Java Spring and React
  Instructor: Fernanda Kipper - kipperDev
  Project adapted by: Charles Fernandes de Souza
- Date: February 06, 2025
+ Date: February 09, 2025
  */
 
 import com.souza.charles.digitalMenu.dto.FoodRequestDTO;
@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 import java.io.Serializable;
 import java.util.List;
 
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
 @RequestMapping("/foods")
 public class FoodController implements Serializable {
@@ -25,38 +26,34 @@ public class FoodController implements Serializable {
     @Autowired
     private FoodService foodService;
 
-    @CrossOrigin(origins = "*", allowedHeaders = "*")
     @PostMapping
     public ResponseEntity<FoodResponseDTO> insert(@RequestBody FoodRequestDTO data) {
         FoodResponseDTO dto = foodService.insert(data);
         return ResponseEntity.status(HttpStatus.CREATED).body(dto);
     }
 
-    @CrossOrigin(origins = "*", allowedHeaders = "*")
+
     @GetMapping
     public ResponseEntity<List<FoodResponseDTO>> findAll() {
         List<FoodResponseDTO> list = foodService.findAll();
-        if (list.isEmpty()) {
-            return ResponseEntity.noContent().build();
-        }
-        return ResponseEntity.ok().body(list);
+        return list.isEmpty() ? ResponseEntity.noContent().build() : ResponseEntity.ok().body(list);
     }
 
-    @CrossOrigin(origins = "*", allowedHeaders = "*")
+
     @GetMapping(value = "/{id}")
     public ResponseEntity<FoodResponseDTO> findById(@PathVariable Long id) {
         FoodResponseDTO dto = foodService.findById(id);
         return ResponseEntity.ok().body(dto);
     }
 
-    @CrossOrigin(origins = "*", allowedHeaders = "*")
+
     @PutMapping(value = "/{id}")
     public ResponseEntity<FoodResponseDTO> update(@PathVariable Long id, @RequestBody FoodRequestDTO data) {
         FoodResponseDTO dto = foodService.update(id, data);
-        return ResponseEntity.status(HttpStatus.CREATED).body(dto);
+        return ResponseEntity.ok().body(dto);
     }
 
-    @CrossOrigin(origins = "*", allowedHeaders = "*")
+
     @DeleteMapping(value = "/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id) {
         foodService.delete(id);

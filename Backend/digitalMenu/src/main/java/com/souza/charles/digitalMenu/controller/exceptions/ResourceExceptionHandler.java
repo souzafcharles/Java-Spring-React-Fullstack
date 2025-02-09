@@ -3,7 +3,7 @@ package com.souza.charles.digitalMenu.controller.exceptions;
  Tutorial title: Building a Full-Stack Application with Java Spring and React
  Instructor: Fernanda Kipper - kipperDev
  Project adapted by: Charles Fernandes de Souza
- Date: February 06, 2025
+ Date: February 09, 2025
  */
 
 import com.souza.charles.digitalMenu.service.exceptions.*;
@@ -50,4 +50,11 @@ public class ResourceExceptionHandler {
         return ResponseEntity.status(status).body(err);
     }
 
+    @ExceptionHandler(DuplicateImageException.class)
+    public ResponseEntity<StandardError> handleDuplicateImageException(DuplicateImageException e, HttpServletRequest request) {
+        String error = "Image URI address already in use.";
+        HttpStatus status = HttpStatus.BAD_REQUEST;
+        StandardError err = new StandardError(Instant.now(), status.value(), error, e.getMessage(), request.getRequestURI());
+        return ResponseEntity.status(status).body(err);
+    }
 }
