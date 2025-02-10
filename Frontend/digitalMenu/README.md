@@ -1,11 +1,4 @@
-## Part 2 - Project Requirements and Configurations:
-
-### Useful Commands:
-
-- `npm install`: Installs project dependencies;
-- `npm run dev`: Starts the development server;
-- `npm run lint`: Runs ESLint to check code quality.
-- `npm run build`: Builds the project for production;
+## Part 1 - Project Requirements and Configurations:
 
 ### 1. Frontend Requirements Specification:
 
@@ -120,11 +113,13 @@ http://localhost:5173/
 
 ---
 
-### 3. Interface and Card Component:
+## Part 2 - Development Requirements and Specifications:
+
+### 1. Interface and Card Component:
 
 - This section covers the creation of the `FoodData` interface and the `Card` component, both fundamental for displaying food items within the application. The interface defines the structure of a food item, while the `Card` component is responsible for visually presenting these details on the main page. Additionally, this section includes styling guidelines to ensure a cohesive and visually appealing design.
 
-#### 3.1. Interface Creation:
+#### 1.1. Interface Creation:
 
 - **Path:** /src/interface/;
 - **Purpose:** Define the FoodData interface to represent the structure of food items;
@@ -139,7 +134,7 @@ export interface FoodData {
 }
 ```
 
-#### 3.2. Card Component:
+#### 1.2. Card Component:
 
 - **Path:** src/components/card/card.tsx;
 - **Purpose:** Displays individual food item details on the main page;
@@ -154,7 +149,7 @@ export interface FoodData {
     - A title element (`h2`);
     - A paragraph (`p`) that displays the item price.
 
-#### 3.3. Styling for Card Component:
+#### 1.3. Styling for Card Component:
 
 - **Path:** src/components/card/card.css;
 - **Purpose:** Style the card component for visual presentation;
@@ -168,11 +163,11 @@ export interface FoodData {
 
 ---
 
-### 4. Form Modal Component:
+### 2. Form Modal Component:
 
 - This section covers the development of the `Form Modal` component, which facilitates the insertion of new Food items into the Menu. It includes the implementation of a form with controlled inputs, validation mechanisms, and API integration. Additionally, the section outlines the styling approach to ensure a user-friendly and visually consistent modal design.
 
-#### 4.1. Form Modal Component Creation:
+#### 2.1. Form Modal Component Creation:
 
 - **Path:** `src/components/create-modal/form-modal.tsx`;
 - **Purpose:** Create a form modal for inserting new food items into the menu;
@@ -188,7 +183,7 @@ export interface FoodData {
   - Use `useEffect` to close the modal if `isSuccess` is true;
   - Implement form elements to capture `title`, `price`, and `image` values.
 
-#### 4.2. Styling for Form Modal Component:
+#### 2.2. Styling for Form Modal Component:
 
 - **Path:** `src/components/create-modal/form-modal.css`;
 - **Purpose:** Define styles for the form modal interface;
@@ -206,11 +201,11 @@ export interface FoodData {
 
 ---
 
-### 5. Hooks for Data Fetching and Mutation:
+### 3. Hooks for Data Fetching and Mutation:
 
 - This section details the implementation of custom hooks for handling data fetching and mutation operations within the application. These hooks utilise `@tanstack/react-query` to streamline API interactions, ensuring efficient data retrieval and updates.
 
-#### 5.1. Food Data Fetching Hook:
+#### 3.1. Food Data Fetching Hook:
 
 - **Path:** `src/hooks/useFoodData.ts`;
 - **Purpose:** Fetch food data from the backend API and manage the query state;
@@ -220,7 +215,7 @@ export interface FoodData {
   - Return the query data, allowing easy access to the backend response;
   - Set up `retry` logic with a maximum of 2 attempts.
 
-#### 5.2. Food Data Mutation Hook:
+#### 3.2. Food Data Mutation Hook:
 
 - **Path:** `src/hooks/useFoodDataMutate.ts`;
 - **Purpose:** Handle `POST` requests to create new food data and update the query cache;
@@ -234,11 +229,11 @@ export interface FoodData {
 
 ---
 
-### 6. Main Entry Point:
+### 4. Main Entry Point:
 
 - This section describes the main entry point of the application, responsible for initialising the React app and integrating essential state management tools. The `main.tsx` file ensures the application and integrating the `Query Client Provider`, which is essential for managing the application's API state.
 
-#### 6.1. Application Main File:
+#### 4.1. Application Main File:
 
 - **Path:** `src/main.tsx`;
 - **Purpose:** Initialize the React application and integrate the Query Client Provider for API state management;
@@ -250,11 +245,11 @@ export interface FoodData {
 
 ---
 
-### 7. Application Component and Styling:
+### 5. Application Component and Styling:
 
 - This section details the implementation of the main application component and its associated styling. It covers rendering the `Food Menu`, managing the `Form Modal`, and defining the overall layout and visual presentation of the application.
 
-#### 7.1. Main Application Component:
+#### 5.1. Main Application Component:
 
 - **Path:** `src/App.tsx`;
 - **Purpose:** Render the main application view, including the food menu and form modal;
@@ -269,7 +264,7 @@ export interface FoodData {
   - Define functions:
     - `handleOpenModal`: Toggle the modal visibility by updating the state.
 
-#### 7.2. Application Styling:
+#### 5.2. Application Styling:
 
 - **Path:** `src/App.css`;
 - **Purpose:** Define layout and style for the main application components;
@@ -285,11 +280,11 @@ export interface FoodData {
 
 ---
 
-### 8. SVG Assets:
+### 6. SVG Assets:
 
 - This section covers the inclusion and requirements for Scalable Vector Graphics (SVG) assets within the application. Specifically, it focuses on the `desk-bell.svg` file, outlining its purpose, formatting, and usage guidelines.
 
-#### 8.1. Desk Bell SVG:
+#### 6.1. Desk Bell SVG:
 
 - **Path:** `public/desk-bell.svg`;
 - **Purpose:** Provide a scalable vector graphic for UI elements, such as icons or decorative assets;
@@ -301,7 +296,7 @@ export interface FoodData {
 
 ---
 
-### 9. Card Grid Layout and Data Rendering:
+### 7. Card Grid Layout and Data Rendering:
 
 - This section details the implementation of the card grid layout and how food item data is dynamically rendered within it. It outlines the structure, styling, and data fetching mechanisms used to display the food items;
 
@@ -322,13 +317,13 @@ export interface FoodData {
 
 ---
 
-### 10. Home Screen with Displayed Items - Example of the home screen displaying the food items:
+### 8. Home Screen with Displayed Items - Example of the home screen displaying the food items:
 
 ![Home Screen with Items](https://github.com/souzafcharles/Java-Spring-React-Fullstack/blob/main/Frontend/digitalMenu/public/home.png)
 
 ---
 
-### 11. Form Validation and Error Handling:
+### 9. Form Validation and Error Handling:
 
 - This section describes the implementation of form validation and error handling within the application. It focuses on ensuring data integrity by validating user input before submission and providing clear error messages to guide the user.
 
@@ -350,7 +345,7 @@ export interface FoodData {
 
 ---
 
-### 12. Screen Modal Form Error Examples:
+### 10. Screen Modal Form Error Examples:
 
 - **Example 1:** Missing fields error:
   ![Modal Form Error](https://github.com/souzafcharles/Java-Spring-React-Fullstack/blob/main/Frontend/digitalMenu/public/missing-error.png)
@@ -367,7 +362,7 @@ export interface FoodData {
 
 ---
 
-### 13. Item Insertion Form:
+### 11. Item Insertion Form:
 
 - This section describes the implementation of the item insertion form, which allows users to add new food items to the menu. It covers the form's functionality, data handling, and interaction with the backend API via a `POST` request:
 - **Path:** `src/components/form-modal/form-modal.tsx`;
@@ -391,13 +386,13 @@ export interface FoodData {
     - **Insert Button:** Executes the `submit()` function;
     - **Back Button:** Closes the modal without submission.
 
-### 14. Form Completion Example - Example of the form being correctly filled before submission:
+### 12. Form Completion Example - Example of the form being correctly filled before submission:
 
 ![Form Completion](https://github.com/souzafcharles/Java-Spring-React-Fullstack/blob/main/Frontend/digitalMenu/public/modal-insert.png)
 
 ---
 
-### 15. Home Screen with New Item Inserted - After successfully inserting the new item, it should appear on the home screen:
+### 13. Home Screen with New Item Inserted - After successfully inserting the new item, it should appear on the home screen:
 
 ![Home Screen Updated](https://github.com/souzafcharles/Java-Spring-React-Fullstack/blob/main/Frontend/digitalMenu/public/home-inserted.png)
 
@@ -405,94 +400,85 @@ export interface FoodData {
 
 ## Project Checklist:
 
-**Frontend Requirements and Configurations:**
+### Part 1 - Project Requirements and Configurations:
 
-- [x] `npm install`: Installs project dependencies;
-- [x] `npm run dev`: Starts the development server;
-- [x] `npm run lint`: Runs ESLint to check code quality;
-- [x] `npm run build`: Builds the project for production;
-- [x] **Project Initialization:** Vite;
-- [x] **Framework:** React;
-- [x] **Language:** TypeScript;
-- [x] **Node.js Package Manager:** npm;
-- [x] Scaffold default project directory with Vite;
-- [x] Execute `npm create vite@latest` to create the project;
-- [x] Set **Project Name:** `digitalMenu`;
-- [x] Set **Package Name:** `com.souza.charles`;
-- [x] Select **Framework:** `React`;
-- [x] Select **Variant:** `TypeScript`;
-- [x] Open the project using `code .`;
-- [x] Navigate to the project folder and run `npm install`;
-- [x] Start the development server using `npm run dev`;
-- [x] Access the application at `http://localhost:5173/`.
+- [x] **Install Project Dependencies** using `npm install`;
+- [x] **Start Development Server** using `npm run dev`;
+- [x] **Run ESLint for Code Quality Checks** using `npm run lint`;
+- [x] **Build Project for Production** using `npm run build`;
+- [x] **Project Initialisation** using Vite with React and TypeScript;
+- [x] **Ensure Proper Directory Structure** as per specification;
+- [x] **Configure VS Code** and open project using `code .`;
+- [x] **Ensure Dependencies Installation** within `digitalMenu/`;
+- [x] **Run Local Development Server** at `http://localhost:5173/`.
 
-**Interface and Card Component:**
+### Part 2 - Development Requirements and Specifications:
 
-- [x] Create `FoodData` interface in `/src/interface/`;
-- [x] Create `Card` component in `/src/components/card/card.tsx`;
-- [x] Accept `price`, `title`, and `image` as props;
-- [x] Define styles in `/src/components/card/card.css`.
+#### 1. **Interface and Card Component:**
 
-**Form Modal Component:**
+- [x] **Create `FoodData` Interface** in `src/interface/FoodData.ts`;
+- [x] **Define Structure for Food Item** (`id`, `title`, `image`, `price`);
+- [x] **Create `Card` Component** in `src/components/card/card.tsx`;
+- [x] **Accept Props (`title`, `price`, `image`)** in `Card` Component;
+- [x] **Apply Styling for `Card` Component** in `src/components/card/card.css`;
+- [x] **Ensure Proper Card Layout and Grid Configuration.**
 
-- [x] Create `FormModal` component in `/src/components/create-modal/form-modal.tsx`;
-- [x] Implement form validation and submission logic;
-- [x] Define styles in `/src/components/create-modal/form-modal.css`.
+#### 2. **Form Modal Component:**
 
-**Hooks for Data Fetching and Mutation:**
+- [x] **Develop `FormModal` Component** in `src/components/form-modal/form-modal.tsx`;
+- [x] **Use `useState` and `useEffect` Hooks** for State Management;
+- [x] **Implement Custom Hook `useFoodDataMutate`** for API Requests;
+- [x] **Validate Form Inputs (`title`, `price`, `image`)** before Submission;
+- [x] **Handle Errors and Display Messages** upon Validation Failure;
+- [x] **Apply Modal Styling in `form-modal.css`** for Consistent UI.
 
-- [x] Create `useFoodData` hook in `/src/hooks/useFoodData.ts`;
-- [x] Create `useFoodDataMutate` hook in `/src/hooks/useFoodDataMutate.ts`.
+#### 3. **Hooks for Data Fetching and Mutation:**
 
-**Main Entry Point:**
+- [x] **Create `useFoodData.ts`** to Fetch Data via `axios`;
+- [x] **Ensure API Fetching from `http://localhost:8080/foods`;**
+- [x] **Implement `useFoodDataMutate.ts`** for Data Mutation;
+- [x] **Ensure Query Invalidation on Data Mutation.**
 
-- [x] Configure `main.tsx` with `QueryClientProvider`.
+#### 4. **Main Entry Point Configuration:**
 
-**Application Component and Styling:**
+- [x] **Configure `main.tsx` to Initialise React Application;**
+- [x] **Wrap Application in `QueryClientProvider`** for API State Management;
+- [x] **Ensure `StrictMode` Usage for Debugging Best Practices.**
 
-- [x] Implement `App.tsx` to render the main application view;
-- [x] Define styles in `/src/App.css`.
+#### 5. **Application Component and Styling:**
 
-**SVG Assets:**
+- [x] **Develop `App.tsx` for Main View Rendering;**
+- [x] **Fetch and Render Food Data using `useFoodData` Hook;**
+- [x] **Implement `handleOpenModal` to Toggle Form Modal;**
+- [x] **Apply Global Styling in `App.css` for Layout and Responsiveness.**
 
-- [x] Include `desk-bell.svg` in `/public/`.
+#### 6. **SVG Assets**
 
-**Card Grid Layout and Data Rendering:**
+- [x] **Ensure Inclusion of `desk-bell.svg` in `public/` Directory;**
+- [x] **Maintain Proper SVG Formatting and Compatibility.**
 
-- [x] Implement card grid layout in `/src/components/card/card.tsx`.
+#### 7. **Card Grid Layout and Data Renderin:**
 
-**Form Validation and Error Handling:**
+- [x] **Ensure `grid-template-columns: 1fr 1fr 1fr 1fr;` for Layout;**
+- [x] **Render `Card` Components Dynamically using `.map()`;**
+- [x] **Ensure Proper Styling and Responsiveness for Food Cards.**
 
-- [x] Implement form validation and error handling in `/src/components/create-modal/FormModal.tsx`.
+#### 8. **Form Validation and Error Handling:**
 
-**Screen Modal Form Error: Image Validation Requirements:**
+- [x] **Validate All Fields Before Submission in `form-modal.tsx`;**
+- [x] **Prevent Submission of Invalid Values (`null`, `NULL`, `Null`);**
+- [x] **Display Error Messages in Case of Validation Failures;**
+- [x] **Apply Proper Styling for Error Messages (`#FF0000`, `18px` font).**
 
-- [x] **Missing Image Field:**
+#### 9. **Item Insertion Form:**
 
-  - Ensure the image field is not empty;
-  - Display an error message if the user attempts to submit without providing an image.
+- [x] **Implement Controlled Inputs for Form Fields (`title`, `price`, `image`);**
+- [x] **Ensure API `POST` Request on Form Submission;**
+- [x] **Handle Backend Errors and Update UI Accordingly;**
+- [x] **Ensure Successful Form Submission Closes the Modal Automatically.**
 
-- [x] **Forbidden Image Values:**
+#### 10. **Final UI and Data Integration:**
 
-  - Prevent submission if the image URL contains forbidden values (`null`, `NULL`, or `Null`).
-
-- [x] **Duplicate Image URL:**
-
-  - Display an error message if the image URL already exists in the system.
-
-- [x] **Error Message Styling:**
-  - **Text Colour:** Red (`#FF0000`)
-  - **Font Size:** `18px`
-  - **Position:** Below the form inputs
-
-**Item Insertion Form:**
-
-- [x] Implement item insertion form in `/src/components/card/FormModal.tsx`.
-
-**Form Completion Example:**
-
-- [x] Ensure form displays correctly when filled.
-
-**Home Screen with New Item Inserted:**
-
-- [x] Update home screen to display newly inserted items.
+- [x] **Ensure Correct UI Representation of Inserted Items;**
+- [x] **Verify Correct Data Fetching and Display on Home Screen;**
+- [x] **Ensure Application Stability with Edge Case Handling.**

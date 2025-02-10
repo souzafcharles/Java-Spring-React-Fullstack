@@ -42,7 +42,7 @@ export function FormModal({ closeModal }: ModalProps) {
   const [image, setImage] = useState("");
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
-  const { mutate, isPending } = useFoodDataMutate();
+  const { mutate, isSuccess, isPending, error } = useFoodDataMutate();
 
   const submit = () => {
     setErrorMessage(null);
@@ -82,9 +82,10 @@ export function FormModal({ closeModal }: ModalProps) {
   };
 
   useEffect(() => {
-    if (!isPending) return;
-    closeModal();
-  }, [isPending]);
+    if (isSuccess) {
+      closeModal();
+    }
+  }, [isSuccess]);
 
   return (
     <div className="modal-overlay">
