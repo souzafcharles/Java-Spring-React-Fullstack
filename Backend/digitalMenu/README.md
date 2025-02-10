@@ -379,8 +379,8 @@ INSERT INTO tb_foods (title, price, image) VALUES
     - Specify `Food` as the associated entity and `Long` as the type for its primary key.
 
 - **Handling Non-Unique Results:**
-    - Use `Optional<Food> findByImage(String image);` only if the `image` attribute is expected to be unique. Otherwise,
-      consider returning a list.
+    - Use `Optional<Food> findByImage(String image);` only if the `image` attribute is expected to be unique. This method returns an `Optional` that contains the `Food` entity if found, or is empty if not. Using `Optional` encourages explicit checks for absence, thereby reducing the likelihood of `NullPointerExceptions`;
+    - For the methods `insert` and `update`, if the `image` attribute is not guaranteed to be unique, consider implementing alternative methods that return a list of food entities, such as `List<Food> findAllByImage(String image);`. This approach ensures that multiple food items with the same image can be retrieved effectively, avoiding potential conflicts.
 
 #### 1.5. Requirements for FoodService Class:
 
@@ -464,14 +464,14 @@ INSERT INTO tb_foods (title, price, image) VALUES
     - `update`: Updates an existing `Food` resource by its identifier;
     - Use `@PutMapping(value = "/{id}")` annotation to map PUT requests;
     - Parameters:
-        - `@PathVariable Long id`: Captures the identifier of the food from the URI;
-        - `@RequestBody FoodRequestDTO data`: Captures the updated food details from the request body;
+        - `@PathVariable Long id`: Captures the identifier of the `Food` from the URI;
+        - `@RequestBody FoodRequestDTO data`: Captures the updated `Food` details from the request body;
     - Response: Returns a `ResponseEntity<FoodResponseDTO>` with an HTTP 200 (OK) status and the updated `Food` object.
 - Implement a method to handle `DELETE` requests for deleting a `Food` by `id`:
     - `delete`: Removes an existing `Food` resource by its identifier;
     - Use `@DeleteMapping(value = "/{id}")` annotation to map DELETE requests;
     - Parameters:
-        - `@PathVariable Long id`: Captures the identifier of the food to be deleted from the URI;
+        - `@PathVariable Long id`: Captures the identifier of the `Food` to be deleted from the URI;
     - Response: Returns a `ResponseEntity<Void>` with an HTTP 204 (No Content) status after successful deletion.
 - Use `@CrossOrigin(origins = "*", allowedHeaders = "*")` annotation to allow cross-origin requests from any origin;
 - Ensure that the class implements the `Serializable` interface to support object serialization when needed.
@@ -780,7 +780,7 @@ public ResponseEntity<StandardError> handleDatabaseException(DatabaseException e
 
 ### 1. Successful Food Data Operations:
 
-- This section details the successful interactions with the Food entity via the Spring Boot RESTful API. It covers the
+- This section details the successful interactions with the `Food` entity via the Spring Boot RESTful API. It covers the
   expected behaviour and responses for various HTTP methods, demonstrating correct data retrieval, creation, updating,
   and deletion;
 - Idempotent and Non-Idempotent Methods:
@@ -793,11 +793,11 @@ public ResponseEntity<StandardError> handleDatabaseException(DatabaseException e
 #### 1.1. `findAll` - Setting Up the RESTful API for HTTP Methods (`Idempotent`):
 
 - **Endpoint:** `GET /foods`;
-- **Purpose:** Retrieves a list of all Foods.
+- **Purpose:** Retrieves a list of all `Foods`.
 
 #### 1.2. Example GET Request:
 
-- **Scenario:** Successfully retrieves a list of all Foods:
+- **Scenario:** Successfully retrieves a list of all `Foods`:
 
 ````markdown
 GET http://localhost:8080/foods
@@ -831,11 +831,11 @@ GET http://localhost:8080/foods
 #### 1.4. `findById` - Setting Up the RESTful API for HTTP Methods (`Idempotent`):
 
 - **Endpoint:** `GET /foods/{id}`;
-- **Purpose:** Retrieves a specific Food item by its ID.
+- **Purpose:** Retrieves a specific `Food` item by its ID.
 
 #### 1.5. Example GET Request:
 
-- **Scenario:** Successfully retrieves the requested Food by ID:
+- **Scenario:** Successfully retrieves the requested `Food` by ID:
 
 ```markdown
 GET http://localhost:8080/foods/10
@@ -859,7 +859,7 @@ GET http://localhost:8080/foods/10
 
 #### 1.8. Example POST Request:
 
-- **Scenario:** Successfully creates a new Food:
+- **Scenario:** Successfully creates a new `Food`:
 
 - **Request Data:**
 
@@ -890,11 +890,11 @@ Body -> raw -> JSON
 #### 1.10. `update` - Setting Up the RESTful API for HTTP Methods (`Idempotent`):
 
 - **Endpoint:** `PUT /foods/{id}`;
-- **Purpose:** Updates a specific Food item by its ID.
+- **Purpose:** Updates a specific `Food` item by its ID.
 
 #### 1.11. Example PUT Request:
 
-- **Scenario:** Successfully updates the requested Food by ID:
+- **Scenario:** Successfully updates the requested F`Food` by ID:
 - **Data for Update:**
 
 ````json
@@ -939,7 +939,7 @@ Body -> raw -> JSON
 
 #### 5.14. Example DELETE Request:
 
-- **Scenario:** Successfully deletes the requested Food by ID:
+- **Scenario:** Successfully deletes the requested `Food` by ID:
 
 ```markdown
 DELETE http://localhost:8080/foods/1
@@ -955,7 +955,7 @@ HTTP Status 204 - No Content
 
 ### 2. Handling Invalid Food Data Requests:
 
-- This section outlines the error scenarios encountered when interacting with the Food entity through the Spring Boot
+- This section outlines the error scenarios encountered when interacting with the `Food` entity through the Spring Boot
   RESTful API. It specifically addresses cases where requests contain invalid or malformed data, and details the
   expected error responses and HTTP status codes returned by the API. This ensures robust error handling and clear
   communication of issues to the client.
@@ -963,7 +963,7 @@ HTTP Status 204 - No Content
 #### 2.1. `findAll` - Setting Up the RESTful API for HTTP Methods (`Idempotent`):
 
 - **Endpoint** `GET /foods`;
-- **Purpose**: Retrieves all Food items from the database.
+- **Purpose**: Retrieves all `Food` items from the database.
 
 #### 2.2. Example GET Request (`Empty Table`):
 
@@ -990,7 +990,7 @@ GET http://localhost:8080/foods
 #### 2.4. `findById` - Setting Up the RESTful API for HTTP Methods (`Idempotent`):
 
 - **Endpoint**: `GET /foods/{id}`;
-- **Purpose**: Retrieves a specific Food item by its ID.
+- **Purpose**: Retrieves a specific `Food` item by its ID.
 
 #### 2.5. Example GET Request (`Resource Not Found`):
 
@@ -1018,7 +1018,7 @@ GET http://localhost:8080/foods/99
 #### 2.7. `insert` - Setting Up the RESTful API for HTTP Methods (`Non-Idempotent`):
 
 - **Endpoint**: `POST /foods`;
-- **Purpose**: Inserts a new Food item into the database.
+- **Purpose**: Inserts a new `Food` item into the database.
 
 #### 2.8. Example POST Request (`Null or Empty Data`):
 
@@ -1093,7 +1093,7 @@ Body -> raw -> JSON
 #### 2.12. `delete` - Setting Up the RESTful API for HTTP Methods (`Idempotent`):
 
 - **Endpoint**: `DELETE /foods/{id}`;
-- **Purpose**: Deletes a specific Food item by its ID.
+- **Purpose**: Deletes a specific F`Food`item by its ID.
 
 #### 2.13. Example DELETE Request (`Resource Not Found`):
 
@@ -1145,7 +1145,7 @@ DELETE http://localhost:8080/foods/1
 #### 2.17. `update` - Setting Up the RESTful API for HTTP Methods (`Idempotent`):
 
 - **Endpoint**: PUT `/foods/{id}`;
-- **Purpose**: Updates a specific Food item by its ID.
+- **Purpose**: Updates a specific `Food` item by its ID.
 
 #### 2.18 Example PUT Request (`Resource Not Found`):
 
@@ -1338,14 +1338,14 @@ Body -> raw -> JSON
 
 ### **Validation of Success and Error Scenarios:**
 
-- [X] **Validate the `GET /foods` endpoint** to retrieve all available food items, ensuring successful retrieval and
+- [X] **Validate the `GET /foods` endpoint** to retrieve all available `Food` items, ensuring successful retrieval and
   handling of an empty database scenario (`404 Not Found`);
-- [X] **Validate the `POST /foods` endpoint** to insert a new food item, covering successful insertion and failure
+- [X] **Validate the `POST /foods` endpoint** to insert a new `Food` item, covering successful insertion and failure
   cases, including invalid or missing data (`400 Bad Request`) and duplicate image URI (`400 Bad Request`);
-- [X] **Validate the `GET /foods/{id}` endpoint** to retrieve a specific food item, ensuring a correct response for
+- [X] **Validate the `GET /foods/{id}` endpoint** to retrieve a specific `Food` item, ensuring a correct response for
   valid IDs and handling cases where the requested resource is not found (`404 Not Found`);
-- [X] **Validate the `PUT /foods/{id}` endpoint** to update an existing food item, verifying successful updates and
+- [X] **Validate the `PUT /foods/{id}` endpoint** to update an existing `Food` item, verifying successful updates and
   handling of errors such as resource not found (`404 Not Found`), invalid or missing data (`400 Bad Request`), and
   duplicate image URI (`400 Bad Request`);
-- [X] **Validate the `DELETE /foods/{id}` endpoint** to remove a food item, ensuring successful deletion and handling of
+- [X] **Validate the `DELETE /foods/{id}` endpoint** to remove a `Food` item, ensuring successful deletion and handling of
   errors such as resource not found (`404 Not Found`) and data integrity violation (`400 Bad Request`).

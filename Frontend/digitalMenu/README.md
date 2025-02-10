@@ -322,67 +322,82 @@ export interface FoodData {
 
 ---
 
-### 9. Home Screen with Displayed Items - Example of the home screen displaying the food items:
+### 10. Home Screen with Displayed Items - Example of the home screen displaying the food items:
 
 ![Home Screen with Items](https://github.com/souzafcharles/Java-Spring-React-Fullstack/blob/main/Frontend/digitalMenu/public/home.png)
 
 ---
 
-### 10. Form Validation and Error Handling:
+### 11. Form Validation and Error Handling:
 
-- This section describes the implementation of form validation and error handling within the application. It focuses on ensuring data integrity by validating user input before submission and providing clear error messages to guide the user;
+- This section describes the implementation of form validation and error handling within the application. It focuses on ensuring data integrity by validating user input before submission and providing clear error messages to guide the user.
 
-- **Path:** `src/components/create-modal/FormModal.tsx`;
+- **Path:** `src/components/form-modal/form-modal.tsx`;
 - **Purpose:** Ensure all form fields are correctly filled before submission;
 - **Requirements:**
   - Validate that all required fields (`title`, `price`, and `image`) are filled;
-  - Display an error message if any field is empty or invalid;
-  - **Error Message:** `"Todos os campos devem ser preenchidos corretamente!"`;
-  - The validation should trigger when clicking the `"Inserir"` button;
-- **Error Styling:**
-  - **Text Color:** Red (`#FF0000`);
-  - **Font Size:** `18px`;
-  - **Position:** Below the form inputs;
-- **Form Behavior:**
-  - If any field is missing, the form should prevent submission;
-  - If all fields are filled correctly, submit the data and close the modal;
-  - The error message should disappear when the user corrects the input.
+  - Prevent the submission if:
+    - The title or image contains forbidden values (`null`, `NULL`, or `Null`);
+    - The price is less than or equal to zero;
+  - Display an error message if any validation fails:
+    - **General error:** "Todos os campos devem ser preenchidos corretamente!";
+    - **Specific backend errors:** Detect and handle messages related to mandatory fields or duplicate image URLs.
+  - Clear the error message when the user corrects the input;
+  - Ensure proper error styling:
+    - **Text Color:** Red (`#FF0000`);
+    - **Font Size:** `18px`;
+    - **Position:** Below the form inputs.
 
 ---
 
-### 11. Screen Modal Form Error - Example of how the error message should appear when validation fails:
+### 12. Screen Modal Form Error Examples:
 
-![Modal Form Error](https://github.com/souzafcharles/Java-Spring-React-Fullstack/blob/main/Frontend/digitalMenu/public/modal-error.png)
+- **Example 1:** Missing fields error:
+  ![Modal Form Error](https://github.com/souzafcharles/Java-Spring-React-Fullstack/blob/main/Frontend/digitalMenu/public/missing-error.png)
 
 ---
 
-### 12. Item Insertion Form:
+- **Example 2:** Forbidden value error (`null`, `NULL`, `Null`):
+  ![Modal Form Error](https://github.com/souzafcharles/Java-Spring-React-Fullstack/blob/main/Frontend/digitalMenu/public/null-error.png)
+
+---
+
+- **Example 3:** Duplicate image error:
+  ![Modal Form Error](https://github.com/souzafcharles/Java-Spring-React-Fullstack/blob/main/Frontend/digitalMenu/public/duplicate-image-error.png)
+
+---
+
+### 13. Item Insertion Form:
 
 - This section describes the implementation of the item insertion form, which allows users to add new food items to the menu. It covers the form's functionality, data handling, and interaction with the backend API via a `POST` request:
-- **Path:** `src/components/card/FormModal.tsx`;
+- **Path:** `src/components/form-modal/form-modal.tsx`;
 - **Purpose:** Allow users to add a new item to the menu by sending a `POST` request to the backend;
-- **Requirements for `FormModal.tsx`:**;
+- **Requirements for `FormModal.tsx`:**
   - Create a local state to store field values:
     - **title:** Name of the item;
     - **price:** Price of the item;
     - **image:** URL of the item’s image;
     - **errorMessage:** Error message if fields are not properly filled;
-  - Create a reusable `Input` component to capture user input;
-  - Implement the `submit()` function that:
-    - Validates if all fields are correctly filled;
-    - Creates a `FoodData` object and sends it via `mutate()`;
-  - Use the `useFoodDataMutate()` hook for data mutation and submission to the backend;
-  - Automatically close the modal after a successful insertion (`useEffect` dependent on `isSuccess`).
+  - Create a reusable `Input` component to capture user input:
+    - Includes label and value binding;
+    - `onChange` event to update parent state values;
+  - Implement the `submit()` function:
+    - Validate that all form fields are filled correctly;
+    - Ensure a `FoodData` object is created and submitted via `mutate()`;
+    - Handle potential backend errors gracefully;
+  - Automatically close the modal upon successful insertion (`useEffect` dependent on `isPending`);
+  - Show dynamic error messages based on validation failures or backend issues;
+  - Include two fixed-position button components:
+    - **Insert Button:** Executes the `submit()` function;
+    - **Back Button:** Closes the modal without submission.
 
----
-
-### 13. Form Completion Example - Example of the form being correctly filled before submission:
+### 14. Form Completion Example - Example of the form being correctly filled before submission:
 
 ![Form Completion](https://github.com/souzafcharles/Java-Spring-React-Fullstack/blob/main/Frontend/digitalMenu/public/modal-insert.png)
 
 ---
 
-### 14. Home Screen with New Item Inserted - After successfully inserting the new item, it should appear on the home screen:
+### 15. Home Screen with New Item Inserted - After successfully inserting the new item, it should appear on the home screen:
 
 ![Home Screen Updated](https://github.com/souzafcharles/Java-Spring-React-Fullstack/blob/main/Frontend/digitalMenu/public/home-inserted.png)
 
@@ -450,9 +465,25 @@ export interface FoodData {
 
 - [x] Implement form validation and error handling in `/src/components/create-modal/FormModal.tsx`.
 
-**Screen Modal Form Error:**
+**Screen Modal Form Error: Image Validation Requirements:**
 
-- [x] Display error message when validation fails.
+- [x] **Missing Image Field:**
+
+  - Ensure the image field is not empty;
+  - Display an error message if the user attempts to submit without providing an image.
+
+- [x] **Forbidden Image Values:**
+
+  - Prevent submission if the image URL contains forbidden values (`null`, `NULL`, or `Null`).
+
+- [x] **Duplicate Image URL:**
+
+  - Display an error message if the image URL already exists in the system.
+
+- [x] **Error Message Styling:**
+  - **Text Colour:** Red (`#FF0000`)
+  - **Font Size:** `18px`
+  - **Position:** Below the form inputs
 
 **Item Insertion Form:**
 

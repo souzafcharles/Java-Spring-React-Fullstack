@@ -1,8 +1,8 @@
- /*
+/*
  Tutorial title: Building a Full-Stack Application with Java Spring and React
  Instructor: Fernanda Kipper - kipperDev
  Project adapted by: Charles Fernandes de Souza
- Date: February 03, 2025
+ Date: February 10, 2025
  */
 import { useEffect, useState } from "react";
 import { useFoodDataMutate } from "../../hooks/useFoodDataMutate";
@@ -26,9 +26,14 @@ const Input = ({ label, value, updateValue }: InputProps) => {
       <input
         value={value}
         onChange={(event) => updateValue(event.target.value)}
-      ></input>
+      />
     </div>
   );
+};
+
+const isInvalidInput = (value: string) => {
+  const forbiddenValues = ["null", "NULL", "Null"];
+  return forbiddenValues.includes(value.trim());
 };
 
 export function FormModal({ closeModal }: ModalProps) {
@@ -36,26 +41,50 @@ export function FormModal({ closeModal }: ModalProps) {
   const [price, setPrice] = useState(0);
   const [image, setImage] = useState("");
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
-  const { mutate, isSuccess, isLoading } = useFoodDataMutate();
+
+  const { mutate, isPending } = useFoodDataMutate();
 
   const submit = () => {
-    if (!title || price <= 0 || !image) {
+    setErrorMessage(null);
+
+    if (
+      !title ||
+      isInvalidInput(title) ||
+      price <= 0 ||
+      !image ||
+      isInvalidInput(image)
+    ) {
       setErrorMessage("Todos os campos devem ser preenchidos corretamente!");
       return;
     }
 
-    const foodData: FoodData = {
-      title,
-      price,
-      image,
-    };
-    mutate(foodData);
+    const foodData: FoodData = { title, price, image };
+
+    mutate(foodData, {
+      onError: (err: any) => {
+        if (err.response) {
+          if (err.response.status === 400) {
+            if (err.response.data.message.includes("Mandatory fields")) {
+              setErrorMessage("Preencha todos os campos corretamente.");
+            } else if (
+              err.response.data.message.includes("already associated")
+            ) {
+              setErrorMessage("A imagem já está cadastrada no sistema.");
+            } else {
+              setErrorMessage("Erro ao processar a requisição.");
+            }
+          } else {
+            setErrorMessage("Erro inesperado. Tente novamente mais tarde.");
+          }
+        }
+      },
+    });
   };
 
   useEffect(() => {
-    if (!isSuccess) return;
+    if (!isPending) return;
     closeModal();
-  }, [isSuccess]);
+  }, [isPending]);
 
   return (
     <div className="modal-overlay">
@@ -69,11 +98,11 @@ export function FormModal({ closeModal }: ModalProps) {
         {errorMessage && <p className="modal-error-message">{errorMessage}</p>}
         <div className="modal-button-group">
           <button onClick={submit} className="modal-btn-insert">
-            {isLoading ? "Inserindo..." : "Inserir"}
+            {isPending ? "Inserindo..." : "Inserir"}
           </button>
           <button onClick={closeModal} className="modal-btn-back">
-          Voltar
-        </button>
+            Voltar
+          </button>
         </div>
       </div>
     </div>
