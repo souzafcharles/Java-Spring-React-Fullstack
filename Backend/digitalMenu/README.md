@@ -379,8 +379,13 @@ INSERT INTO tb_foods (title, price, image) VALUES
     - Specify `Food` as the associated entity and `Long` as the type for its primary key.
 
 - **Handling Non-Unique Results:**
-    - Use `Optional<Food> findByImage(String image);` only if the `image` attribute is expected to be unique. This method returns an `Optional` that contains the `Food` entity if found, or is empty if not. Using `Optional` encourages explicit checks for absence, thereby reducing the likelihood of `NullPointerExceptions`;
-    - For the methods `insert` and `update`, if the `image` attribute is not guaranteed to be unique, consider implementing alternative methods that return a list of food entities, such as `List<Food> findAllByImage(String image);`. This approach ensures that multiple food items with the same image can be retrieved effectively, avoiding potential conflicts.
+    - Use `Optional<Food> findByImage(String image);` only if the `image` attribute is expected to be unique. This
+      method returns an `Optional` that contains the `Food` entity if found, or is empty if not. Using `Optional`
+      encourages explicit checks for absence, thereby reducing the likelihood of `NullPointerExceptions`;
+    - For the methods `insert` and `update`, if the `image` attribute is not guaranteed to be unique, consider
+      implementing alternative methods that return a list of food entities, such as
+      `List<Food> findAllByImage(String image);`. This approach ensures that multiple food items with the same image can
+      be retrieved effectively, avoiding potential conflicts.
 
 #### 1.5. Requirements for FoodService Class:
 
@@ -894,7 +899,7 @@ Body -> raw -> JSON
 
 #### 1.11. Example PUT Request:
 
-- **Scenario:** Successfully updates the requested F`Food` by ID:
+- **Scenario:** Successfully updates the requested `Food` by ID:
 - **Data for Update:**
 
 ````json
@@ -1093,7 +1098,7 @@ Body -> raw -> JSON
 #### 2.12. `delete` - Setting Up the RESTful API for HTTP Methods (`Idempotent`):
 
 - **Endpoint**: `DELETE /foods/{id}`;
-- **Purpose**: Deletes a specific F`Food`item by its ID.
+- **Purpose**: Deletes a specific `Food`item by its ID.
 
 #### 2.13. Example DELETE Request (`Resource Not Found`):
 
@@ -1347,5 +1352,6 @@ Body -> raw -> JSON
 - [X] **Validate the `PUT /foods/{id}` endpoint** to update an existing `Food` item, verifying successful updates and
   handling of errors such as resource not found (`404 Not Found`), invalid or missing data (`400 Bad Request`), and
   duplicate image URI (`400 Bad Request`);
-- [X] **Validate the `DELETE /foods/{id}` endpoint** to remove a `Food` item, ensuring successful deletion and handling of
+- [X] **Validate the `DELETE /foods/{id}` endpoint** to remove a `Food` item, ensuring successful deletion and handling
+  of
   errors such as resource not found (`404 Not Found`) and data integrity violation (`400 Bad Request`).
