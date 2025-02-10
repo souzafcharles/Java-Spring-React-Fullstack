@@ -501,7 +501,7 @@ INSERT INTO tb_foods (title, price, image) VALUES
 - Provide constructors, getters, and setters to support object manipulation;
 - Implement `Serializable` for object serialization when needed.
 
-#### 2.3. **NEW CLASS:** `controller.exceptions.ResourceExceptionHandler`:
+#### 2.3. **NEW CLASS:** `controller.exceptions.ResourceExceptionHandler` (Custom Exception):
 
 - The `ResourceExceptionHandler` class is responsible for intercepting exceptions thrown during the execution of RESTful
   requests in the application and converting them into standardized HTTP error responses.
@@ -513,14 +513,14 @@ INSERT INTO tb_foods (title, price, image) VALUES
 - **Error Response Standardization:** Provides a mechanism to customize the error response by creating and returning
   `StandardError` objects with detailed error information.
 
-#### 2.3.2. **Detailed Breakdown of the `handleResourceNotFound` Method:**
+#### 2.3.2. **NEW METHOD:** `handleResourceNotFoundException`:
 
 - This method is responsible for handling exceptions of type `ResourceNotFoundException` and converting them into
   standardized HTTP error responses:
 
 ````java
 @ExceptionHandler(ResourceNotFoundException.class)
-public ResponseEntity<StandardError> handleResourceNotFound(ResourceNotFoundException e, HttpServletRequest request) {
+public ResponseEntity<StandardError> handleResourceNotFoundException(ResourceNotFoundException e, HttpServletRequest request) {
     String error = "Resource not found with the specified identifier or criteria.";
     HttpStatus status = HttpStatus.NOT_FOUND;
     StandardError err = new StandardError(
@@ -1329,7 +1329,7 @@ Body -> raw -> JSON
   `InvalidDataException`;
 - [X] Implement `StandardError` class for standardized error responses;
 - [X] Create `ResourceExceptionHandler` class with `@ControllerAdvice` to handle exceptions globally;
-- [X] Implement methods in `ResourceExceptionHandler` to handle specific exceptions (`handleResourceNotFound`,
+- [X] Implement methods in `ResourceExceptionHandler` to handle specific exceptions (`handleResourceNotFoundException`,
   `handleDatabaseException`, `handleEmptyTableException`, `handleBadRequestException`, `handleDuplicateImageException`).
 
 ---
